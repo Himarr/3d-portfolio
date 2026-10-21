@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #05070d;
+  --color-surface: #0b1020;
+  --color-line: #1c2540;
+  --color-text: #e8ecf5;
+  --color-muted: #9aa6c0;
+  --color-accent: #7fe3ff;
+  --color-rim: #ffffff;
+  --color-focus: #7fe3ff;
+  /* error: #e8707e. Contrast: 6.36:1 on surface (#0b1020), 6.76:1 on ink (#05070d). Text needs 4.5, border and icon need 3. Form validation states only. */
+  --color-error: #e8707e;
+
+  --font-display: "Instrument Serif", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Full-screen layout variant: active when <html data-snap-layout="on"> (set by initLayoutVars). */
+@custom-variant snap (&:where([data-snap-layout="on"] *));
+
+:root {
+  color-scheme: dark;
+  /* Default navbar height; replaced by the measured header height in Navbar. */
+  --nav-h: 3.8125rem;
+}
+
+html,
+body {
+  background-color: var(--color-ink);
+  color: var(--color-text);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Poster matches the canvas planet, which is centred in the stage. */
+.hero-poster {
+  object-fit: fill;
+  object-position: center;
+}
+
+/* Hero text wrap (wrap mode only): circle float the text flows around.
+   Variables are written on the Hero by useHeroWrap. */
+.hero-moon-float {
+  float: right;
+  width: var(--wrap-size, 0px);
+  height: var(--wrap-size, 0px);
+  margin-top: var(--wrap-mt, 0px);
+  margin-right: var(--wrap-mr, 0px);
+  shape-outside: circle(closest-side at 50% 50%) border-box;
+  pointer-events: none;
+}
+
+/* Section arrow icon: src/assets/icons/arrow-down.svg applied as a mask, tinted by currentColor.
+   The component sets --arrow-icon-url to a full url(...) value inline. The up arrow is this icon rotated 180 degrees. */
+.arrow-icon {
+  background-color: currentColor;
+  mask-image: var(--arrow-icon-url);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* Shared icon mask (IconMask component): same technique as .arrow-icon above.
+   The component sets --icon-url to a full url(...) value inline; shape comes from the SVG alpha, colour from currentColor. */
+.icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  mask-image: var(--icon-url);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}

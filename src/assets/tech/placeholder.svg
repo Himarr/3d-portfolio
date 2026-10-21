@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+  <!-- PLACEHOLDER, replace with owner SVG. Generic glyph for a tool without an icon, not a brand mark. Single colour (currentColor), tinted by CSS mask; only the shape matters. -->
+  <path d="M7 4 H17 A3 3 0 0 1 20 7 V17 A3 3 0 0 1 17 20 H7 A3 3 0 0 1 4 17 V7 A3 3 0 0 1 7 4 Z" />
+  <circle cx="12" cy="12" r="3" />
+</svg>
