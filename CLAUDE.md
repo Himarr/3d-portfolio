@@ -8,25 +8,42 @@ Portfolio site for my 3D modeling and game developer work.
 - Tailwind CSS
 - Three.js
 
-## Spec Driven Development (SDD)
+<!-- stdd:start -->
+## Comandos
+- Tests de aceptación: node --test "tests/acceptance/<feature>/**/*.test.*" (ESM: archivos .test.js o .test.mjs)
+- Todos los tests: node --test "tests/**/*.test.*" y los checks existentes (npm run check:buffer, check:cel, check:snap, check:moon, check:carousel, check:contrast)
+- Lint: npm run lint
+- Typecheck: no aplica (JS); en su lugar, npm run build debe compilar
 
-Workflow: `/spec` → human review → `/plan` → human review → `/tasks` → human review → `/build` (one task) → `/verify` → repeat.
+## Flujo de trabajo (Spec + Test Driven)
+Toda feature se lanza con `/feature <idea>` y sigue: spec corta → tests de aceptación que fallan → implementación mínima hasta verde → una revisión.
+- `<feature>` = `<NNN>-<nombre>`: carpeta `specs/<feature>/`, tests en `tests/acceptance/<feature>/`, rama `feature/<feature>`.
+- Nivel S (cambio local, 1–2 archivos, ≤ 3 criterios): sin Planner ni plan.md. Test que falla primero, luego código.
+- Nivel M (una feature): Planner, 1–4 tareas.
+- Nivel L (varias partes del sistema): Planner, máximo 8 tareas. Más de 8 = dividir en varias features M.
+- Agentes (`.claude/agents/`): planner (plan + tests), builder / builder-rapido (implementan), reviewer (una revisión por feature, solo lectura).
+- browser: comprobaciones de navegador del checklist tests/acceptance/<feature>/browser.md; solo lo lanza el Orchestrator. Nadie más arranca el servidor de desarrollo ni usa el navegador.
 
-- Specs live in `specs/<NNN>-<name>/` with `spec.md`, `plan.md`, `tasks.md`.
-- Main agent is an **orchestrator**: it launches subagents and never writes spec/plan/tasks/code itself.
-- Subagents (`.claude/agents/`):
-  - `sdd-planner`: writes spec.md, plan.md, tasks.md. Only for those.
-  - `sdd-builder`: implements ONE task from tasks.md. Only for that.
-  - `sdd-reviewer`: read-only check that the code meets the spec requirements. Runs only when the user invokes `/verify`.
-  - `sdd-browser`: read-only browser checks (dev server, built-in browser pane, console/network, responsive, screenshots). The orchestrator NEVER runs browser tools or the dev server itself; it delegates to `sdd-browser` and reads only its report. Use it after a build whose "Done when" is visual/runtime, before the user's manual review.
-- Review of spec, plan and tasks is **human** review: stop after each and wait for the user. The reviewer subagent is not part of that; it reads those approved files as the requirements.
-- If anything fails or is ambiguous: stop and ask the user. Never improvise.
-- Task markers in tasks.md: `- [ ]` pending, `- [~]` built (awaiting `/verify`), `- [x]` verified by reviewer (PASS).
+## Reglas de simplicidad
+- Implementa la solución más simple que haga pasar los tests de aceptación.
+- No añadas abstracciones, capas, configurabilidad, ni manejo de casos que no estén en los criterios de aceptación.
+- No crees archivos de documentación, resúmenes ni informes salvo que se pidan.
+- Respeta los no-objetivos de la spec: si algo parece necesario y está fuera, se reporta, no se hace.
 
-## Token budget
+## Reglas sobre tests
+- tests/acceptance/ es el contrato. Solo el Planner lo escribe (o el builder en nivel S, antes de implementar); nadie más lo modifica.
+- Si un test de aceptación parece incorrecto, se reporta como TEST_ISSUE con el motivo; nunca se edita, salta ni debilita.
+- Tests unitarios adicionales solo para lógica con ramas o cálculos delicados, y en tests/unit/.
+- Prohibido: hardcodear resultados esperados, detectar el entorno de test, mockear lo que el test verifica.
 
-- Orchestrator: never read whole spec/plan/tasks files (they run 20-70k chars). Grep `^- \[[ ~x]\] T-` for task state; pass subagents only the spec path + task ID.
-- Builder/reviewer read only their task block plus the FR/AC/plan sections it cites.
-- Browser: only for tasks with `Browser: yes` or visual/runtime "Done when", with a specific checklist in the prompt (one desktop viewport unless more are asked). Prefer one `javascript_tool` call over screenshots. Not for re-checking what tests/build already prove.
-- Keep context under ~150k: auto-compact is set in `.claude/settings.json`; run `/compact` or start a fresh session between SDD steps (spec, plan, tasks, each batch of builds) since state lives in the spec files, not the chat.
-- Models: builder/reviewer/browser = sonnet; planner = inherit (planning quality matters most). Use haiku only for trivial one-file edits.
+## Contexto
+- Trabaja con el contexto que recibes en el paquete de tarea. Usa grep/glob solo para leer código concreto que necesites, no para buscar tu tarea o la spec.
+- No leas specs/ de otras features.
+
+## Git
+- Una rama por feature: feature/<feature>. Nunca se trabaja en la rama principal.
+- Commits solo del Orchestrator, en este orden: spec → contrato (plan + tests) → un commit por tarea → fix de revisión.
+- Mensajes: <tipo>(<feature>): <qué>, con tipo en spec, test, feat, fix, refactor.
+- Los subagentes solo usan git para leer (status, diff, log).
+- Prohibido sin OK del usuario: push, merge a la rama principal, rebase, reset --hard, force.
+<!-- stdd:end -->
