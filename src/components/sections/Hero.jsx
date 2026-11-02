@@ -7,6 +7,8 @@ import {
   alienOffsetInRadii,
   ALIEN_HEIGHT_PER_MOON_RADIUS,
   ALIEN_POSTER_FILL,
+  ALIEN_DROP_DURATION_S,
+  ALIEN_DROP_EASE,
 } from "../../three/alienPlacement.js";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion.js";
 import { useCanvasStatus } from "../../context/canvasStatus.js";
@@ -37,6 +39,7 @@ export default function Hero() {
   const wrap = useMediaQuery(`(min-width: ${HERO_WRAP_MIN_WIDTH_PX}px)`);
   const textRef = useRef(null);
   const posterBoxRef = useRef(null);
+  const alienBoxRef = useRef(null);
   useHeroWrap(sectionRef, textRef, wrap);
   useHeroColumn(textRef, !wrap);
 
@@ -48,10 +51,16 @@ export default function Hero() {
 
     let tl;
     const posterBox = posterBoxRef.current;
+    const alienBox = alienBoxRef.current;
+    // Distance that puts the alien poster fully above the viewport (read once).
+    const alienImg = alienBox && alienBox.querySelector("img");
+    const alienUp = alienImg ? alienImg.getBoundingClientRect().bottom : 0;
     moonIntro.scale = MOON_INTRO_START_SCALE;
+    moonIntro.alienDrop = 1;
     const ctx = gsap.context(() => {
       const [eyebrow, intro] = gsap.utils.toArray("[data-intro]");
       if (posterBox) gsap.set(posterBox, { scale: MOON_INTRO_START_SCALE });
+      if (alienBox) gsap.set(alienBox, { y: -alienUp });
       // Only opacity, y/yPercent and scale. Never touches visibility or
       // pointer-events, so links stay clickable during the intro.
       tl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -69,6 +78,20 @@ export default function Hero() {
           },
         },
         0,
+      );
+      // One tween is the clock for the live alien and its poster.
+      tl.fromTo(
+        moonIntro,
+        { alienDrop: 1 },
+        {
+          alienDrop: 0,
+          duration: ALIEN_DROP_DURATION_S,
+          ease: ALIEN_DROP_EASE,
+          onUpdate: () => {
+            if (alienBox) gsap.set(alienBox, { y: -alienUp * moonIntro.alienDrop });
+          },
+        },
+        ">",
       );
       tl.addLabel("text", ">");
       tl.from(eyebrow, { opacity: 0, y: 16, duration: 0.6 }, "text+=0")
@@ -88,6 +111,8 @@ export default function Hero() {
       ctx.revert();
       heroIntro.timeline = null;
       moonIntro.scale = 1;
+      moonIntro.alienDrop = 0;
+      if (alienBox) gsap.set(alienBox, { clearProps: "transform" });
       if (!finished) introPlayed = false;
     };
   }, [reducedMotion]);
@@ -117,7 +142,7 @@ export default function Hero() {
   // ALIEN_POSTER_FILL of the 1200 px square. Same offset as live placement.
   const alienOff = alienOffsetInRadii(wrap, { dx: 0, dy: 0 });
   const alienSide = `calc(var(--moon-r) * ${ALIEN_HEIGHT_PER_MOON_RADIUS / ALIEN_POSTER_FILL})`;
-  const poster = (
+  const moonPoster = (
     <div
       ref={posterBoxRef}
       className={posterBoxClass}
@@ -135,6 +160,15 @@ export default function Hero() {
           status === "live" ? "opacity-0" : "opacity-100"
         }`}
       />
+    </div>
+  );
+  // Separate box so the alien poster does not inherit the moon's intro scale.
+  const alienPoster = (
+    <div
+      ref={alienBoxRef}
+      className={posterBoxClass}
+      style={posterBoxStyle}
+    >
       <img
         src={alienPosterUrl}
         alt=""
@@ -153,6 +187,12 @@ export default function Hero() {
         }}
       />
     </div>
+  );
+  const poster = (
+    <>
+      {moonPoster}
+      {alienPoster}
+    </>
   );
 
   return (

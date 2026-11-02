@@ -7,6 +7,9 @@ export const ALIEN_HEIGHT_PER_MOON_RADIUS = 2
 // Vertical float: amplitude in moon radii, period in seconds.
 export const ALIEN_FLOAT_AMPLITUDE = 0.03
 export const ALIEN_FLOAT_PERIOD_S = 5
+// Intro drop: duration and ease (tuned by eye).
+export const ALIEN_DROP_DURATION_S = 1
+export const ALIEN_DROP_EASE = 'back.out(1.4)'
 // Alien centre depth in moon radii, in front of the moon's front surface.
 export const ALIEN_Z_PER_MOON_RADIUS = 2.5
 
@@ -38,7 +41,7 @@ export const ALIEN_MAX_REACH_RADII =
 const off = { dx: 0, dy: 0 }
 
 export function alienPlacement(
-  { moonX, moonY, radius, introScale, viewportWidth, timeS },
+  { moonX, moonY, radius, introScale, viewportWidth, viewportHeight, timeS, drop = 0 },
   out,
 ) {
   const r = radius * introScale
@@ -48,10 +51,12 @@ export function alienPlacement(
   const half = height / 2
   const limit = viewportWidth / 2 - half
   out.x = Math.max(-limit, Math.min(limit, moonX + off.dx * r))
-  out.y =
+  const restY =
     moonY +
     off.dy * r +
     ALIEN_FLOAT_AMPLITUDE * r * Math.sin((2 * Math.PI * timeS) / ALIEN_FLOAT_PERIOD_S)
+  // drop 1 = whole alien just above the viewport top; 0 = rest.
+  out.y = restY + drop * Math.max(0, viewportHeight / 2 + half - restY)
   out.z = ALIEN_Z_PER_MOON_RADIUS * r
   out.height = height
   return out
