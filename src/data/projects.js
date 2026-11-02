@@ -34,6 +34,7 @@ import portfolioCover from "../assets/img/projects/portfolio-cover.webp";
 import portfolioHero from "../assets/img/projects/portfolio-hero.webp";
 import portfolioProjects from "../assets/img/projects/portfolio-projects.webp";
 import portfolioContact from "../assets/img/projects/portfolio-contact.webp";
+import superUnamOdysseyCover from "../assets/img/projects/super-unam-odyssey-cover.webp";
 
 export const projects = [
   {
@@ -187,7 +188,46 @@ export const projects = [
     slug: "super-unam-odyssey",
     title: "Super Unam Odyssey",
     type: "game",
-    description: "Placeholder: descripción de Super Unam Odyssey.",
+    description:
+      "A Super Mario Bros. (NES) clone made in Unity for a university project. I led a team of 4 and programmed the gameplay, plus an Odyssey mode with Cappy.",
+    // Provenance: own work (title screen of the game)
+    image: {
+      src: superUnamOdysseyCover,
+      alt: "Title screen of Super Unam Odyssey with the logo on a brown plate and the Classic Mode, Odyssey Mode and Exit options over a blue sky with Mario and green hills",
+      width: 1600,
+      height: 900,
+    },
+    // Provenance: own work (title screen of the game)
+    images: [
+      {
+        src: superUnamOdysseyCover,
+        alt: "Title screen of Super Unam Odyssey with the logo on a brown plate and the Classic Mode, Odyssey Mode and Exit options over a blue sky with Mario and green hills",
+        width: 1600,
+        height: 900,
+      },
+    ],
+    year: "2025",
+    role: "Team lead & gameplay programmer",
+    tools: "Unity, C#",
+    link: { label: "View on GitHub", href: "https://github.com/Himarr/SuperMarioBrosClone" },
+    sections: [
+      {
+        heading: "What it is",
+        body: "Super Unam Odyssey is a recreation of the NES Super Mario Bros. It was a university project from 2025 at Universidad Atlántico Medio, made in Unity by a team of 4 that I led. I was the only programmer with experience on the team.",
+      },
+      {
+        heading: "Movement physics and collisions",
+        body: "I programmed the movement physics and the collisions, so Mario moves, jumps and hits the blocks and the ground the way the classic game does.",
+      },
+      {
+        heading: "Enemies, power-ups and levels",
+        body: "I programmed the enemies, the power-ups, the state machines that control their behaviour, and the levels needed to build a full clone of the NES game.",
+      },
+      {
+        heading: "Odyssey mode",
+        body: "The Odyssey mode adds Cappy to the game, along with the bounce mechanic on the hat.",
+      },
+    ],
   },
 ];
 

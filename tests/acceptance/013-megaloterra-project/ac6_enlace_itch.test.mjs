@@ -16,7 +16,7 @@ test('AC6: enlace visible a itch.io en pestaña nueva con rel seguro', async () 
 })
 
 test('AC6: los otros proyectos no muestran ningún enlace externo nuevo', async () => {
-  for (const slug of ['portfolio', '3d-library', 'super-unam-odyssey']) {
+  for (const slug of ['portfolio', '3d-library']) {
     const html = await renderRoute(`/projects/${slug}`)
     assert.ok(!/itch\.io/i.test(html), `${slug}: sin itch.io`)
     assert.ok(!html.includes('target="_blank"'), `${slug}: sin enlaces a pestaña nueva`)
