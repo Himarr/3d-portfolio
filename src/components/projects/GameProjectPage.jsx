@@ -113,6 +113,12 @@ export default function GameProjectPage({ project, headingRef }) {
           ))}
         </dl>
         <p className="text-lg leading-relaxed text-text">{project.description}</p>
+        {project.sections?.map(({ heading, body }) => (
+          <section key={heading} className="mt-10">
+            <h2 className="mb-3 font-display text-3xl leading-tight text-text">{heading}</h2>
+            <p className="leading-relaxed text-muted">{body}</p>
+          </section>
+        ))}
         <Link
           to="/#projects"
           className="mt-8 -mx-3 inline-flex min-h-11 items-center rounded-sm px-3 text-sm uppercase tracking-widest text-muted underline decoration-transparent underline-offset-8 transition-colors hover:text-text hover:decoration-accent focus-visible:bg-surface active:text-accent motion-reduce:transition-none"

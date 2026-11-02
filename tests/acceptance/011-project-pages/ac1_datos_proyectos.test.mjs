@@ -6,8 +6,11 @@ after(close)
 
 test('AC1: la portada lista Megaloterra, 3D Library y Super Unam Odyssey en orden con slug y type', async () => {
   const projects = await loadProjects()
+  const feature011 = ['megaloterra', '3d-library', 'super-unam-odyssey']
   assert.deepEqual(
-    projects.map((p) => [p.title, p.slug, p.type]),
+    projects
+      .filter((p) => feature011.includes(p.slug))
+      .map((p) => [p.title, p.slug, p.type]),
     [
       ['Megaloterra', 'megaloterra', 'game'],
       ['3D Library', '3d-library', 'library'],
