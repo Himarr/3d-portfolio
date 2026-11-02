@@ -197,6 +197,15 @@ export const projects = [
       width: 1600,
       height: 900,
     },
+    // Provenance: own work (title screen of the game)
+    images: [
+      {
+        src: superUnamOdysseyCover,
+        alt: "Title screen of Super Unam Odyssey with the logo on a brown plate and the Classic Mode, Odyssey Mode and Exit options over a blue sky with Mario and green hills",
+        width: 1600,
+        height: 900,
+      },
+    ],
     year: "2025",
     role: "Team lead & gameplay programmer",
     tools: "Unity, C#",

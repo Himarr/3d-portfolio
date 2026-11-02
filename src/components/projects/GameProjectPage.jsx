@@ -15,7 +15,7 @@ const arrowClass =
 export default function GameProjectPage({ project, headingRef }) {
   const [current, setCurrent] = useState(0)
   const slides =
-    project.images?.length >= 3
+    project.images?.length >= 1
       ? project.images
       : Array.from({ length: PLACEHOLDER_COUNT }, (_, i) => ({
           src: null,
@@ -64,36 +64,40 @@ export default function GameProjectPage({ project, headingRef }) {
             )}
           </div>
         ))}
-        <button
-          type="button"
-          aria-label="Previous image"
-          onClick={() => show(current - 1)}
-          className={`${arrowClass} left-4`}
-        >
-          &#8249;
-        </button>
-        <button
-          type="button"
-          aria-label="Next image"
-          onClick={() => show(current + 1)}
-          className={`${arrowClass} right-4`}
-        >
-          &#8250;
-        </button>
-        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
-          {slides.map((_, i) => (
+        {count > 1 && (
+          <>
             <button
-              key={i}
               type="button"
-              aria-label={`Go to image ${i + 1}`}
-              aria-current={i === current ? 'true' : undefined}
-              onClick={() => show(i)}
-              className={`size-3 rounded-full border p-0 ${
-                i === current ? 'border-accent bg-accent' : 'border-muted bg-transparent'
-              }`}
-            />
-          ))}
-        </div>
+              aria-label="Previous image"
+              onClick={() => show(current - 1)}
+              className={`${arrowClass} left-4`}
+            >
+              &#8249;
+            </button>
+            <button
+              type="button"
+              aria-label="Next image"
+              onClick={() => show(current + 1)}
+              className={`${arrowClass} right-4`}
+            >
+              &#8250;
+            </button>
+            <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to image ${i + 1}`}
+                  aria-current={i === current ? 'true' : undefined}
+                  onClick={() => show(i)}
+                  className={`size-3 rounded-full border p-0 ${
+                    i === current ? 'border-accent bg-accent' : 'border-muted bg-transparent'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       <article className="mx-auto min-w-0 max-w-2xl px-5 pb-16 pt-10">
