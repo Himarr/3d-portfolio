@@ -3,6 +3,7 @@ import { Canvas, useThree } from '@react-three/fiber'
 import Moon from './Moon.jsx'
 import Alien from './Alien.jsx'
 import OutlineLayer from './OutlineLayer.jsx'
+import { ALIEN_POSTER_FILL } from './alienPlacement.js'
 import { moonRadiusPx } from './moonFraming.js'
 import { OUTLINE_THICKNESS_CSS_PX, POSTER_DISPLAY_CSS_PX } from './celConstants.js'
 
@@ -12,9 +13,8 @@ import { OUTLINE_THICKNESS_CSS_PX, POSTER_DISPLAY_CSS_PX } from './celConstants.
 // poster is shown at POSTER_DISPLAY_CSS_PX, it measures OUTLINE_THICKNESS_CSS_PX.
 const SIZE = 1200
 // /?capture-poster=alien renders only the alien (hero-alien-poster.png), filling
-// ALIEN_FILL of the square; Hero sizes its poster box from the same value.
+// ALIEN_POSTER_FILL of the square; Hero sizes its poster box from the same value.
 const ALIEN = location.search.includes('capture-poster=alien')
-const ALIEN_FILL = 0.8
 const POSTER_OUTLINE_PX = OUTLINE_THICKNESS_CSS_PX / (POSTER_DISPLAY_CSS_PX / SIZE)
 const GL_OPTIONS = { alpha: true, preserveDrawingBuffer: true }
 const CAMERA = { position: [0, 0, 1000], near: 1, far: 4000, zoom: 1 }
@@ -82,7 +82,7 @@ export default function PosterCapture() {
         resize={{ scroll: false }}
       >
         <Suspense fallback={null}>
-          <group ref={placeRef} scale={ALIEN ? (SIZE * ALIEN_FILL) / 2 : moonRadiusPx(SIZE)}>
+          <group ref={placeRef} scale={ALIEN ? (SIZE * ALIEN_POSTER_FILL) / 2 : moonRadiusPx(SIZE)}>
             {ALIEN ? <Alien /> : <Moon />}
           </group>
           <OutlineLayer anchorRef={placeRef} thicknessCssPx={POSTER_OUTLINE_PX} />

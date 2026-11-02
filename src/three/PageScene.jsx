@@ -2,7 +2,7 @@ import { Suspense, useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import Moon from './Moon.jsx'
 import Alien from './Alien.jsx'
-import { alienPlacement } from './alienPlacement.js'
+import { alienPlacement, ALIEN_MAX_REACH_RADII } from './alienPlacement.js'
 import OutlineLayer from './OutlineLayer.jsx'
 import StarLayer, { STAR_OPACITY } from './StarLayer.jsx'
 import { getMoonRadius } from '../lib/moonSize.js'
@@ -20,8 +20,8 @@ const POINTER_MAX = 0.15
 const POINTER_SMOOTHING = 4
 const SPIN_RAD_PER_SEC = (2 * Math.PI) / 90
 const MAX_DELTA = 0.1
-// Outline region radius in moon radii: covers the moon and the alien beside or below it.
-const OUTLINE_REGION_RADII = 1.5
+// Outline region radius in moon radii: covers the moon and the alien, plus a margin for the outline thickness.
+const OUTLINE_REGION_RADII = Math.max(1, ALIEN_MAX_REACH_RADII) + 0.1
 // Star fade-in once the canvas is live; matches the 700 ms poster fade.
 const STAR_FADE_S = 0.7
 const prefersReducedMotion = () =>
