@@ -11,7 +11,7 @@ La sección Tech Stack muestra las herramientas reales de Himar en cuatro catego
   - Programming: C#, Python, Java, GDScript
   - Web: React, Three.js
   y `validateTechStack(techStack)` devuelve `[]`. Ningún id ni nombre "placeholder" queda en los datos.
-- AC2: Dado cada herramienta, entonces tiene `icon` que apunta a un SVG existente en `src/assets/tech/` (nombre = id de la herramienta), sin `width`/`height` en el `<svg>` raíz, sin `<script>` ni referencias externas, y con un comentario `// Provenance:` en `techStack.js`. GDScript puede reutilizar el logo de Godot.
+- AC2: Dado cada herramienta, entonces tiene `icon` que apunta a un SVG existente en `src/assets/tech/` (nombre = id de la herramienta), sin `width`/`height` en el `<svg>` raíz, sin `<script>` ni referencias externas, y con un comentario `// Provenance:` en `techStack.js`. GDScript puede reutilizar el logo de Godot. Excepción (decisión del usuario): ZBrush y Substance 3D Painter no tienen logo en Simple Icons ni Devicon; quedan sin `icon` y muestran el placeholder.
 - AC3: Dado la Home en desktop (≥ md), cuando se ve la sección Tech Stack, entonces las cuatro categorías caben en la rejilla sin dejar una sola categoría huérfana en una fila (p. ej. 2×2 en md, 4 columnas en lg); en móvil siguen apiladas.
 
 ## No-objetivos
