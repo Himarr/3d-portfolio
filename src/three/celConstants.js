@@ -8,7 +8,7 @@
 //   - make shadows lighter/darker: CEL_SHADOW1_MULTIPLIER, CEL_SHADOW2_MULTIPLIER
 //   - move band boundaries:        CEL_THRESHOLD_* (higher = smaller lit area)
 //   - soften or harden band edges: CEL_BAND_AA_PX
-//   - diagonal stripes in shadow 2: CEL_HATCH_ANGLE_DEG, CEL_HATCH_PERIOD_CSS_PX,
+//   - diagonal stripes in shadow 2 and dark half of shadow 1: CEL_HATCH_ANGLE_DEG, CEL_HATCH_PERIOD_CSS_PX,
 //     CEL_HATCH_WIDTH, CEL_HATCH_MULTIPLIER (1 = no stripes)
 //   - grain mask on the light spot: CEL_GRAIN_CELL_CSS_PX, CEL_GRAIN_DOT_RADIUS,
 //     CEL_GRAIN_STRENGTH (0 = solid spot)
@@ -55,8 +55,9 @@ export const CEL_HATCH_WIDTH = 0.3;
 export const CEL_HATCH_MULTIPLIER = 0.25;
 // Grain cell size in CSS px (one dot per cell, scaled by effective DPR).
 export const CEL_GRAIN_CELL_CSS_PX = 18;
-// Grain dot radius relative to the cell, in (0, 1); raising enlarges the dots.
-export const CEL_GRAIN_DOT_RADIUS = 0.15;
+// Maximum grain dot radius relative to the cell (reached at the centre of the spot), in [0.5, 1);
+// dots shrink to nothing at the spot edge; raising enlarges them.
+export const CEL_GRAIN_DOT_RADIUS = 0.6;
 // Strength of the grain mask on the light spot, [0, 1]; 0 = solid spot, 1 = spot colour only inside the dots.
 export const CEL_GRAIN_STRENGTH = 1;
 

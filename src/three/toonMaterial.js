@@ -66,11 +66,6 @@ uniform float uCelGrainRadius;
 uniform float uCelGrainStrength;
 uniform float uCelDpr;
 
-vec2 celHash( vec2 p ) {
-  p = vec2( dot( p, vec2( 127.1, 311.7 ) ), dot( p, vec2( 269.5, 183.3 ) ) );
-  return fract( sin( p ) * 43758.5453 );
-}
-
 // Soft band weight: smoothstep of half-width w (device-px based), hard step when w is 0.
 float celBand( float t, float ndl, float w ) {
   return w > 1e-6 ? smoothstep( t - w, t + w, ndl ) : step( t, ndl );
@@ -85,22 +80,16 @@ vec3 celShade( vec3 base, vec3 N ) {
   float sf = fract( s );
   float sw = fwidth( s );
   float stripe = 1.0 - smoothstep( uCelHatchWidth - sw, uCelHatchWidth + sw, sf );
+  float mid = 0.5 * ( uCelTShadow1 + uCelTLit );
   vec3 c = base * uCelShadow2 * mix( 1.0, uCelHatchMult, stripe );
-  c = mix( c, base * uCelShadow1, celBand( uCelTShadow1, ndl, w ) );
+  c = mix( c, base * uCelShadow1 * mix( 1.0, uCelHatchMult, stripe * ( 1.0 - celBand( mid, ndl, w ) ) ), celBand( uCelTShadow1, ndl, w ) );
   c = mix( c, base * uCelLit, celBand( uCelTLit, ndl, w ) );
-  // Screen-space Voronoi dots, 3x3 neighbourhood.
-  vec2 q = gl_FragCoord.xy / ( uCelGrainCell * uCelDpr );
-  vec2 qi = floor( q );
-  vec2 qf = fract( q );
-  float dmin = 8.0;
-  for ( int j = -1; j <= 1; j++ ) {
-    for ( int i = -1; i <= 1; i++ ) {
-      vec2 g = vec2( float( i ), float( j ) );
-      dmin = min( dmin, length( g + celHash( qi + g ) - qf ) );
-    }
-  }
-  float dw = fwidth( dmin );
-  float dots = 1.0 - smoothstep( uCelGrainRadius - dw, uCelGrainRadius + dw, dmin );
+  // Screen-space dot grid (halftone); radius grows with brightness inside the spot.
+  vec2 gp = fract( gl_FragCoord.xy / ( uCelGrainCell * uCelDpr ) ) - 0.5;
+  float gd = length( gp );
+  float gr = uCelGrainRadius * clamp( ( ndl - uCelTSpot ) / ( 1.0 - uCelTSpot ), 0.0, 1.0 );
+  float gw = fwidth( gd );
+  float dots = ( 1.0 - smoothstep( gr - gw, gr + gw, gd ) ) * step( 1e-4, gr );
   c = mix( c, uCelSpotColor, celBand( uCelTSpot, ndl, w ) * mix( 1.0, dots, uCelGrainStrength ) );
   return c;
 }
