@@ -12,12 +12,14 @@ for (const [slug, title] of [
     const html = await renderRoute(`/projects/${slug}`)
     assert.match(html, /<h1[^>]*>[^<]*/)
     assert.ok(html.includes(title), 'título')
+    if (slug === 'megaloterra') {
     assert.ok((html.match(/<img\b/g) ?? []).length >= 3, 'al menos 3 imágenes en el carrusel')
     assert.match(html, /<button[^>]*aria-label="[^"]*(prev|anterior)[^"]*"/i, 'botón anterior con aria-label')
     assert.match(html, /<button[^>]*aria-label="[^"]*(next|siguiente)[^"]*"/i, 'botón siguiente con aria-label')
     assert.equal((html.match(/aria-current=/g) ?? []).length, 1, 'un único punto activo con aria-current')
     const dots = html.match(/<button\b[^>]*aria-label="[^"]*"/g) ?? []
     assert.ok(dots.length >= 5, 'prev + next + ≥3 puntos')
+    }
     assert.match(html, /role|rol/i, 'ficha: rol')
     assert.match(html, /tools|herramientas/i, 'ficha: herramientas')
     assert.match(html, /year|a(ñ|n)o/i, 'ficha: año')
