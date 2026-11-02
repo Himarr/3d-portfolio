@@ -8,6 +8,10 @@
 //   - make shadows lighter/darker: CEL_SHADOW1_MULTIPLIER, CEL_SHADOW2_MULTIPLIER
 //   - move band boundaries:        CEL_THRESHOLD_* (higher = smaller lit area)
 //   - soften or harden band edges: CEL_BAND_AA_PX
+//   - diagonal stripes in shadow 2: CEL_HATCH_ANGLE_DEG, CEL_HATCH_PERIOD_CSS_PX,
+//     CEL_HATCH_WIDTH, CEL_HATCH_MULTIPLIER (1 = no stripes)
+//   - dot grain on lit areas:      CEL_GRAIN_CELL_CSS_PX, CEL_GRAIN_DOT_RADIUS,
+//     CEL_GRAIN_STRENGTH (0 = no grain)
 //   - thicker or thinner outline:  OUTLINE_THICKNESS_CSS_PX
 //   - outline colour:              OUTLINE_COLOR
 //   - silhouette only (no lines inside the model): OUTLINE_INNER_EDGES = false
@@ -38,6 +42,23 @@ export const CEL_THRESHOLD_LIT = 0.3;
 export const CEL_THRESHOLD_SHADOW1 = -0.3;
 // Band-edge smoothing in device px; 0 = hard steps, raising softens the edges.
 export const CEL_BAND_AA_PX = 1;
+
+// --- Screen-space patterns (fixed to the screen, static) ---
+
+// Stripe direction in shadow 2, degrees from the screen x axis (counter-clockwise).
+export const CEL_HATCH_ANGLE_DEG = 45;
+// Distance between stripes in CSS px (scaled by effective DPR); raising spaces them out.
+export const CEL_HATCH_PERIOD_CSS_PX = 6;
+// Fraction of the period covered by a stripe, in (0, 1); raising thickens stripes.
+export const CEL_HATCH_WIDTH = 0.3;
+// Multiplier on the shadow 2 colour inside a stripe, [0, 1]; lower = darker, 1 = no stripes.
+export const CEL_HATCH_MULTIPLIER = 0.6;
+// Grain cell size in CSS px (one dot per cell, scaled by effective DPR).
+export const CEL_GRAIN_CELL_CSS_PX = 5;
+// Grain dot radius relative to the cell, in (0, 1); raising enlarges the dots.
+export const CEL_GRAIN_DOT_RADIUS = 0.15;
+// Mix of the dots towards CEL_LIGHT_SPOT_COLOR, [0, 1]; 0 = no grain.
+export const CEL_GRAIN_STRENGTH = 0.5;
 
 // --- Outline ---
 

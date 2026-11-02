@@ -20,6 +20,7 @@ import {
   OUTLINE_Z_FACTOR,
   OUTLINE_Z_MAX,
 } from './celConstants.js'
+import { setCelDpr } from './toonMaterial.js'
 import { OUTLINE_LAYER } from './outlineLayers.js'
 import { createInnerEdgeMaterial, createMaskMaterial, createRingMaterial } from './outlineMaterials.js'
 import { computeOutlineRegion } from './outlineRegion.js'
@@ -312,6 +313,10 @@ export default function OutlineLayer({
       throw new Error('OutlineLayer: the camera zoom must be 1 (1 world unit = 1 CSS px)')
     }
   }, [gl, camera])
+
+  useLayoutEffect(() => {
+    setCelDpr(dpr)
+  }, [dpr])
 
   useEffect(() => {
     return () => {
