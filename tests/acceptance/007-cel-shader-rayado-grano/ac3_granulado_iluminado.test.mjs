@@ -10,11 +10,24 @@ test('AC3: uniforms de granulado se rellenan desde celConstants', () => {
   assert.equal(uniforms.uCelGrainStrength.value, C.CEL_GRAIN_STRENGTH)
 })
 
-test('AC3: Voronoi 3x3 con bucles de limites constantes, celda en px de pantalla x DPR', () => {
+test('AC3: cuadricula regular a pantalla (celda x DPR, fract), sin hash ni Voronoi ni bucles', () => {
   const g = compileToon().fragmentShader
-  assert.match(g, /for\s*\(\s*int\s+\w+\s*=\s*-1\s*;\s*\w+\s*<=\s*1\s*;/)
   assert.match(g, /uCelGrainCell\s*\*\s*uCelDpr|uCelDpr\s*\*\s*uCelGrainCell/)
   assert.match(g, /gl_FragCoord/)
+  assert.match(celShadeBody(g), /fract\s*\(/)
+  assert.doesNotMatch(g, /celHash|[Hh]ash/, 'sin hash')
+  assert.doesNotMatch(g, /\bfor\s*\(/, 'sin bucles (Voronoi 3x3 eliminado)')
+  assert.doesNotMatch(g, /vec2\s+g\s*=|dmin/, 'sin vecindario Voronoi')
+})
+
+test('AC3: el radio del punto sigue al brillo: clamp((ndl - uCelTSpot)/(1 - uCelTSpot)) * uCelGrainRadius', () => {
+  const body = celShadeBody(compileToon().fragmentShader)
+  const st = body.split(';').find((x) => /uCelGrainRadius/.test(x))
+  assert.ok(st, 'sentencia que usa uCelGrainRadius en celShade')
+  assert.match(st, /clamp\s*\(/)
+  assert.match(st, /ndl/)
+  assert.match(st, /uCelTSpot/)
+  assert.match(st, /1\.0\s*-\s*uCelTSpot/, 'normalizado al rango [uCelTSpot, 1]')
 })
 
 function spotStatement(body) {
@@ -23,13 +36,13 @@ function spotStatement(body) {
   return st
 }
 
-test('AC3: el granulado va tras la banda lit y no usa el peso lit (sin granulado en sombras ni en la banda lit)', () => {
+test('AC3: ni las sombras ni la banda lit llevan granulado', () => {
   const body = celShadeBody(compileToon().fragmentShader)
-  const iLit = body.indexOf('celBand( uCelTLit')
-  assert.ok(iLit > 0)
-  assert.doesNotMatch(body.slice(0, iLit), /uCelGrain|[Gg]rain/, 'sombras sin granulado')
-  const litStmt = body.split(';').find((x) => /celBand\(\s*uCelTLit/.test(x))
-  assert.doesNotMatch(litStmt, /[Gg]rain|dots/, 'la banda lit no lleva granulado')
+  for (const re of [/base\s*\*\s*uCelShadow2/, /base\s*\*\s*uCelShadow1/, /base\s*\*\s*uCelLit/]) {
+    const st = body.split(';').find((x) => re.test(x))
+    assert.ok(st, String(re))
+    assert.doesNotMatch(st, /[Gg]rain|dots/)
+  }
   for (const st of body.split(';')) {
     if (/uCelGrainStrength/.test(st)) assert.doesNotMatch(st, /litW|uCelTLit/, 'el granulado no pondera con el peso lit')
   }
