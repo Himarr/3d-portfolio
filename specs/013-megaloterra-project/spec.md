@@ -14,7 +14,7 @@ Rellenar la página de Megaloterra (`/projects/megaloterra`) con contenido real 
   4. Sistema de guardado: guarda la partida completa (equipo de criaturas con estadísticas, movimientos e items; inventario de items y consumibles; criaturas de la guardería).
   5. Interfaces, menús y opciones: programación de HUD, menús, inventario y opciones.
 - AC4: El texto visible no menciona texturizado ni Substance como trabajo del autor. Tampoco atribuye al autor trabajo que no hizo (combate, fusión o música se presentan como parte del juego, no como suyos).
-- AC5: El proyecto tiene `image` (portada del carrusel de la home: la vista cenital del mapa) e `images` con 6 capturas reales. Cada imagen tiene `src`, un `alt` descriptivo, `width` y `height`. Los archivos existen en `src/assets/img/projects/` (`megaloterra*.webp`) y la página los muestra en el hero.
+- AC5: El proyecto tiene `image` (portada del carrusel de la home: la vista en 3ª persona del mapa (encrucijada)) e `images` con 6 capturas reales. Cada imagen tiene `src`, un `alt` descriptivo, `width` y `height`. Los archivos existen en `src/assets/img/projects/` (`megaloterra*.webp`) y la página los muestra en el hero.
 - AC6: Dada esa página, entonces hay un enlace visible a `https://d3nuwu.itch.io/megaloterra` (p. ej. "Play on itch.io") que se abre en una pestaña nueva con `rel="noopener noreferrer"`. Los proyectos sin enlace no muestran nada nuevo, y las páginas de 3D Portfolio, 3D Library y Super Unam Odyssey se ven igual que antes.
 
 ## No-objetivos

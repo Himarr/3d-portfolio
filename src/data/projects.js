@@ -42,26 +42,26 @@ export const projects = [
     type: "game",
     description:
       "A creature-capturing roguelike built by a team of 4. I made the 3D node map, the creature models, the save system and the UI.",
-    // Provenance: own work, Megaloterra team (top-down view of the procedural map)
+    // Provenance: own work, Megaloterra team (third-person view of the procedural map, crossroads)
     image: {
-      src: megaloterraMap,
-      alt: "Top-down view of the procedural 3D map with branching paths, red combat nodes, event nodes and a low-poly forest",
-      width: 1204,
-      height: 753,
+      src: megaloterraCrossroads,
+      alt: "Third-person view of two creatures on pedestals at a path crossroads of the map, surrounded by a low-poly forest",
+      width: 1209,
+      height: 756,
     },
     // Provenance: own work, Megaloterra team
     images: [
-      {
-        src: megaloterraMap,
-        alt: "Top-down view of the procedural 3D map with branching paths, red combat nodes, event nodes and a low-poly forest",
-        width: 1204,
-        height: 753,
-      },
       {
         src: megaloterraCrossroads,
         alt: "Third-person view of two creatures on pedestals at a path crossroads of the map, surrounded by a low-poly forest",
         width: 1209,
         height: 756,
+      },
+      {
+        src: megaloterraMap,
+        alt: "Top-down view of the procedural 3D map with branching paths, red combat nodes, event nodes and a low-poly forest",
+        width: 1204,
+        height: 753,
       },
       {
         src: megaloterraCombat,
