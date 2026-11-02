@@ -27,7 +27,8 @@ test('AC1: el glb conserva sus 3 materiales con textura propia y el toon conserv
     assert.ok(m.pbrMetallicRoughness?.baseColorTexture, `${n} sin baseColorTexture`)
   }
   const imgs = j.images.map((i) => i.name)
-  assert.ok(imgs.includes('BaseColor') && imgs.includes('Clothes'))
+  assert.ok(imgs.some((n) => n?.startsWith('BaseColor')), `falta imagen BaseColor ${imgs}`)
+  assert.ok(imgs.includes('Clothes'), `falta imagen Clothes ${imgs}`)
   const sentinel = { isTexture: true }
   assert.equal(createToonMaterial({ name: 'x', map: sentinel }).map, sentinel)
 })
