@@ -31,7 +31,7 @@ export default function TechStack() {
           className="wrap-break-word font-display text-4xl leading-tight tracking-tight text-text sm:text-5xl"
         />
       </div>
-      <div className="grid gap-x-8 gap-y-8 md:grid-cols-3">
+      <div className="grid gap-x-8 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
         {techStack.map((category) => (
           <div key={category.id} data-reveal>
             <TechCategory category={category} />
