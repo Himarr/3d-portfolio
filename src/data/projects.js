@@ -26,22 +26,22 @@
 
 export const projects = [
   {
-    slug: "project-one",
-    title: "Project title one",
-    description:
-      "One or two sentences on what this project is and what I made.",
+    slug: "megaloterra",
+    title: "Megaloterra",
+    type: "game",
+    description: "Placeholder: descripción de Megaloterra.",
   },
   {
-    slug: "project-two",
-    title: "Project title two",
-    description:
-      "One or two sentences on what this project is and what I made.",
+    slug: "3d-library",
+    title: "3D Library",
+    type: "library",
+    description: "Placeholder: descripción de 3D Library.",
   },
   {
-    slug: "project-three",
-    title: "Project title three",
-    description:
-      "One or two sentences on what this project is and what I made.",
+    slug: "super-unam-odyssey",
+    title: "Super Unam Odyssey",
+    type: "game",
+    description: "Placeholder: descripción de Super Unam Odyssey.",
   },
 ];
 
