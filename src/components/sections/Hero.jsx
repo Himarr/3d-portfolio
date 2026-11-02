@@ -224,21 +224,21 @@ export default function Hero() {
               data-intro
               className="mb-6 text-sm font-medium uppercase tracking-widest text-accent"
             >
-              3D Artist &amp; Game Developer
+              Game Developer &amp; 3D Artist
             </p>
             <SplitHeading
               as="h1"
               id="hero-heading"
               trigger="none"
-              text="Hero headline placeholder"
+              text="Artist’s eye. Engineer’s mind"
               className="mb-6 wrap-break-word font-display leading-[1.02] tracking-tight text-text"
               style={{
                 fontSize: `clamp(2.75rem, calc(var(--moon-r) * ${HERO_H1_RADIUS_RATIO}), 6rem)`,
               }}
             />
             <p data-intro className="max-w-xl text-base text-muted sm:text-lg">
-              A short introduction describing what I do and the kind of work
-              shown on this site. Placeholder text to be replaced later.
+              I’m Himar, a 3D artist who codes. From modeling and texturing to shaders and gameplay,
+              I bridge the gap between art and engineering so ideas make it into the game intact.
             </p>
           </div>
         </div>
@@ -253,18 +253,18 @@ export default function Hero() {
               data-intro
               className="text-sm font-medium uppercase tracking-widest text-accent"
             >
-              3D Artist &amp; Game Developer
+              Game Developer &amp; 3D Artist
             </p>
             <SplitHeading
               as="h1"
               id="hero-heading"
               trigger="none"
-              text="Hero headline placeholder"
+              text="Artist’s eye. Engineer’s mind"
               className="max-w-3xl wrap-break-word font-display text-5xl leading-[1.02] tracking-tight text-text sm:text-6xl md:text-8xl"
             />
             <p data-intro className="max-w-xl text-base text-muted sm:text-lg">
-              A short introduction describing what I do and the kind of work
-              shown on this site. Placeholder text to be replaced later.
+              I’m Himar, a 3D artist who codes. From modeling and texturing to shaders and gameplay,
+              I bridge the gap between art and engineering so ideas make it into the game intact.
             </p>
           </div>
           <div

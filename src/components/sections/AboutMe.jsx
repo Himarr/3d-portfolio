@@ -10,9 +10,8 @@ import {
 } from "../../lib/sectionLayout.js";
 
 const facts = [
-  { id: "focus", label: "Focus", value: "3D modeling and game development" },
-  { id: "based", label: "Based in", value: "Placeholder location" },
-  { id: "open", label: "Open to", value: "Placeholder availability" },
+  { id: "focus", label: "Focus", value: "Game development 3D Modeling" },
+  { id: "based", label: "Based in", value: "Gran Canaria" },
 ];
 
 // Section style: the safe band plus the snapped frame height. The height is
@@ -76,12 +75,15 @@ export default function AboutMe() {
           className="flex max-w-prose flex-col gap-4 text-base text-muted sm:text-lg snap:text-base"
         >
           <p>
-            A short paragraph about who I am and how I got into 3D modeling and
-            game development. Placeholder text to be replaced later.
+            I like hard problems. If something looks out of reach, that’s usually what I want to 
+            build next, whether it’s a character, a custom shader, or a tool that doesn’t exist yet.
           </p>
           <p>
-            A second paragraph about how I work and what I care about when
-            building a model or a game. Placeholder text.
+            I care about the details (clean topology, readable code, a look that holds up close),
+            but I also know a finished thing beats a perfect idea. So I work in a practical, solution-oriented way and keep going until it ships.
+          </p>
+          <p>
+            Getting better at what I do isn’t a goal for me, it’s the fun part.
           </p>
         </div>
         <dl
