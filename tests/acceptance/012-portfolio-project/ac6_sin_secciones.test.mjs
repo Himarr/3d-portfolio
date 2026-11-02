@@ -4,7 +4,7 @@ import { renderRoute, loadProjects, close } from './_render.mjs'
 
 after(close)
 
-test('AC4: proyectos sin sections no renderizan h2 y el portfolio sí', async () => {
+test('AC6: proyectos sin sections no renderizan h2 y el portfolio sí', async () => {
   const projects = await loadProjects()
   assert.ok(projects.some((p) => p.slug === 'portfolio'), 'existe portfolio')
   const portfolioHtml = await renderRoute('/projects/portfolio')

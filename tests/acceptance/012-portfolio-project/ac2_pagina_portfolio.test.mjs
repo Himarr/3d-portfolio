@@ -17,5 +17,5 @@ test('AC2: /projects/portfolio usa el layout de videojuego con ficha real', asyn
   for (const t of ['React', 'Three.js', 'GSAP', 'Lenis', 'Tailwind CSS', 'Vite', 'Claude Code']) {
     assert.ok(tools.includes(t), `Tools incluye ${t}`)
   }
-  assert.ok(!/placeholder/i.test(html.replace(/placeholder \d/gi, '')), 'sin textos Placeholder')
+  assert.ok(!/placeholder/i.test(html), 'sin textos Placeholder')
 })
