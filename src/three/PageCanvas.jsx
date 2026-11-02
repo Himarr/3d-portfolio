@@ -36,7 +36,7 @@ export default function PageCanvas(props) {
 }
 
 // Viewport-fixed orthographic canvas (1 world unit = 1 CSS px) behind all sections.
-function PageCanvasLayer({ pageRef, onStatus }) {
+function PageCanvasLayer({ pageRef, onStatus, starsOnly }) {
   const [probe] = useState(() => probeWebGL2())
   const [coarse] = useState(
     () =>
@@ -131,6 +131,7 @@ function PageCanvasLayer({ pageRef, onStatus }) {
             epoch={epoch}
             pageRef={pageRef}
             onLive={handleLive}
+            starsOnly={starsOnly}
           />
         </Canvas>
       </CanvasErrorBoundary>

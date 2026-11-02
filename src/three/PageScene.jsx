@@ -39,7 +39,7 @@ function MoonReady({ moonReadyRef }) {
   return null
 }
 
-export default function PageScene({ starCount: starCap, epoch, pageRef, onLive }) {
+export default function PageScene({ starCount: starCap, epoch, pageRef, onLive, starsOnly }) {
   const size = useThree((s) => s.size)
 
   const layerRef = useRef(null)
@@ -141,8 +141,9 @@ export default function PageScene({ starCount: starCap, epoch, pageRef, onLive }
     const visible = h.inView
     if (place && place.visible !== visible) place.visible = visible
     if (alienPlace && alienPlace.visible !== visible) alienPlace.visible = visible
-    const moonReady = moonReadyRef.current
-    const moonActive = visible && moonReady
+    // starsOnly: no moon refs exist, so the moon blocks above are no-ops; ready at once.
+    const moonReady = starsOnly || moonReadyRef.current
+    const moonActive = !starsOnly && visible && moonReady
     if (moonActive) {
       spinRef.current.rotation.y += dt * SPIN_RAD_PER_SEC
       rigRef.current.rotation.x = m.py * POINTER_MAX
@@ -185,16 +186,18 @@ export default function PageScene({ starCount: starCap, epoch, pageRef, onLive }
           copiesRef={copiesRef}
         />
       </group>
-      <Suspense fallback={null}>
-        <group ref={placeRef}>
-          <Moon rigRef={rigRef} spinRef={spinRef} />
-        </group>
-        <group ref={alienPlaceRef}>
-          <Alien rigRef={alienRigRef} />
-        </group>
-        <MoonReady moonReadyRef={moonReadyRef} />
-        <OutlineLayer anchorRef={placeRef} />
-      </Suspense>
+      {!starsOnly && (
+        <Suspense fallback={null}>
+          <group ref={placeRef}>
+            <Moon rigRef={rigRef} spinRef={spinRef} />
+          </group>
+          <group ref={alienPlaceRef}>
+            <Alien rigRef={alienRigRef} />
+          </group>
+          <MoonReady moonReadyRef={moonReadyRef} />
+          <OutlineLayer anchorRef={placeRef} />
+        </Suspense>
+      )}
     </>
   )
 }

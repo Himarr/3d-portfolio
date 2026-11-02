@@ -355,7 +355,8 @@ test('real data modules load and validate', () => {
 
 test('getProjectBySlug', () => {
   const { getProjectBySlug } = projectsMod
-  assert.equal(getProjectBySlug('project-one')?.slug, 'project-one')
-  assert.equal(getProjectBySlug('Project-One'), undefined)
+  assert.equal(getProjectBySlug('megaloterra')?.slug, 'megaloterra')
+  assert.equal(getProjectBySlug('megaloterra')?.title, 'Megaloterra')
+  assert.equal(getProjectBySlug('Megaloterra'), undefined)
   assert.equal(getProjectBySlug('x'), undefined)
 })

@@ -1,9 +1,34 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProjectBySlug } from '../data/projects.js'
 import ProjectNotFound from '../components/ProjectNotFound.jsx'
+import GameProjectPage from '../components/projects/GameProjectPage.jsx'
+import LibraryProjectPage from '../components/projects/LibraryProjectPage.jsx'
+import CanvasErrorBoundary from '../three/CanvasErrorBoundary.jsx'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js'
+
+const PageCanvas = lazy(() => import('../three/PageCanvas.jsx'))
+const noop = () => {}
 
 export default function ProjectPage() {
+  const pageRef = useRef(null)
+  const reducedMotion = usePrefersReducedMotion()
+
+  return (
+    <div ref={pageRef} className="relative isolate">
+      {!reducedMotion && (
+        <CanvasErrorBoundary onError={noop}>
+          <Suspense fallback={null}>
+            <PageCanvas starsOnly pageRef={pageRef} onStatus={noop} />
+          </Suspense>
+        </CanvasErrorBoundary>
+      )}
+      <ProjectContent />
+    </div>
+  )
+}
+
+function ProjectContent() {
   const { slug } = useParams()
   const project = getProjectBySlug(slug)
   const headingRef = useRef(null)
@@ -13,6 +38,10 @@ export default function ProjectPage() {
   }, [slug])
 
   if (!project) return <ProjectNotFound />
+
+  if (project.type === 'game') return <GameProjectPage project={project} headingRef={headingRef} />
+
+  if (project.type === 'library') return <LibraryProjectPage project={project} headingRef={headingRef} />
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-8">
