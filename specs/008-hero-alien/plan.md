@@ -4,7 +4,7 @@ Interfaces nuevas o modificadas: `src/three/alienPlacement.js` (puro, sin import
 `alienPlacement({ moonX, moonY, radius, introScale, viewportWidth, viewportHeight, timeS }, out) -> out {x, y, z, height}` (coordenadas canvas: 1 unidad = 1 px, +Y arriba, luna en z=0; ancho si viewportWidth >= HERO_WRAP_MIN_WIDTH_PX; y incluye la senoide de flotación; sin asignaciones)
 `alienOffsetInRadii(wide, out) -> out {dx, dy}` (offset del centro del alien respecto al de la luna, en radios de luna, sin flotación; lo usan la escena y el póster)
 `Alien({ rigRef })` en `src/three/Alien.jsx`: `<group ref={rigRef}><FitToUnit><Model url={alienUrl} toon outline/></FitToUnit></group>`, sin spin
-- [ ] T1 — Alien vivo delante de la luna con textura, toon, contorno único, colocado, flotación e inclinación | AC: 1, 2, 3, 4, 5, 7 | Archivos: src/three/alienPlacement.js, src/three/Alien.jsx, src/three/PageScene.jsx, src/three/OutlineLayer.jsx | Depende de: — | Complejidad: normal
+- [x] T1 — Alien vivo delante de la luna con textura, toon, contorno único, colocado, flotación e inclinación | AC: 1, 2, 3, 4, 5, 7 | Archivos: src/three/alienPlacement.js, src/three/Alien.jsx, src/three/PageScene.jsx, src/three/OutlineLayer.jsx | Depende de: — | Complejidad: normal
 - [ ] T2 — Póster estático del alien en fallback con la misma posición relativa que en vivo, y captura por PosterCapture | AC: 6 | Archivos: src/components/sections/Hero.jsx, src/three/PosterCapture.jsx, src/assets/hero-alien-poster.png (placeholder PNG válido transparente; lo sustituye la captura) | Depende de: T1 | Complejidad: normal
 
 Notas:

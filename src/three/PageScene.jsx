@@ -1,6 +1,8 @@
 import { Suspense, useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import Moon from './Moon.jsx'
+import Alien from './Alien.jsx'
+import { alienPlacement } from './alienPlacement.js'
 import OutlineLayer from './OutlineLayer.jsx'
 import StarLayer, { STAR_OPACITY } from './StarLayer.jsx'
 import { getMoonRadius } from '../lib/moonSize.js'
@@ -18,6 +20,8 @@ const POINTER_MAX = 0.15
 const POINTER_SMOOTHING = 4
 const SPIN_RAD_PER_SEC = (2 * Math.PI) / 90
 const MAX_DELTA = 0.1
+// Outline region radius in moon radii: covers the moon and the alien beside or below it.
+const OUTLINE_REGION_RADII = 1.5
 // Star fade-in once the canvas is live; matches the 700 ms poster fade.
 const STAR_FADE_S = 0.7
 const prefersReducedMotion = () =>
@@ -55,6 +59,9 @@ export default function PageScene({ starCount: starCap, epoch, pageRef, onLive }
   const placeRef = useRef(null)
   const rigRef = useRef(null)
   const spinRef = useRef(null)
+  const alienPlaceRef = useRef(null)
+  const alienRigRef = useRef(null)
+  const alienPos = useRef({ x: 0, y: 0, z: 0, height: 0 }).current
   const moonReadyRef = useRef(false)
   const motion = useRef({ px: 0, py: 0, drift: 0, frames: 0, fade: 0 })
   const widthRef = useRef(size.width)
@@ -109,18 +116,40 @@ export default function PageScene({ starCount: starCap, epoch, pageRef, onLive }
       place.position.x = h.cxVp - state.size.width / 2
       place.position.y = state.size.height / 2 - (h.cyDoc - scrollSource.y)
       place.scale.setScalar(radius * moonIntro.scale)
-      place.userData.regionRadius = radius
+      place.userData.regionRadius = radius * OUTLINE_REGION_RADII
+    }
+    const alienPlace = alienPlaceRef.current
+    if (place && alienPlace) {
+      alienPlacement(
+        {
+          moonX: place.position.x,
+          moonY: place.position.y,
+          radius,
+          introScale: moonIntro.scale,
+          viewportWidth: W,
+          viewportHeight: H,
+          timeS: state.clock.elapsedTime,
+        },
+        alienPos,
+      )
+      alienPlace.position.set(alienPos.x, alienPos.y, alienPos.z)
+      alienPlace.scale.setScalar(alienPos.height / 2)
     }
 
     // only the hero's moon does work, and only while the hero is in view
     const visible = h.inView
     if (place && place.visible !== visible) place.visible = visible
+    if (alienPlace && alienPlace.visible !== visible) alienPlace.visible = visible
     const moonReady = moonReadyRef.current
     const moonActive = visible && moonReady
     if (moonActive) {
       spinRef.current.rotation.y += dt * SPIN_RAD_PER_SEC
       rigRef.current.rotation.x = m.py * POINTER_MAX
       rigRef.current.rotation.y = m.px * POINTER_MAX
+      if (alienRigRef.current) {
+        alienRigRef.current.rotation.x = m.py * POINTER_MAX
+        alienRigRef.current.rotation.y = m.px * POINTER_MAX
+      }
     }
 
     // stars: opacity 0 until the canvas is live (2 frames with the moon), then ramp
@@ -158,6 +187,9 @@ export default function PageScene({ starCount: starCap, epoch, pageRef, onLive }
       <Suspense fallback={null}>
         <group ref={placeRef}>
           <Moon rigRef={rigRef} spinRef={spinRef} />
+        </group>
+        <group ref={alienPlaceRef}>
+          <Alien rigRef={alienRigRef} />
         </group>
         <MoonReady moonReadyRef={moonReadyRef} />
         <OutlineLayer anchorRef={placeRef} />
