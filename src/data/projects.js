@@ -24,6 +24,12 @@
 //   },
 // },
 
+import megaloterraMap from "../assets/img/projects/megaloterra-map.webp";
+import megaloterraCrossroads from "../assets/img/projects/megaloterra-crossroads.webp";
+import megaloterraCombat from "../assets/img/projects/megaloterra-combat.webp";
+import megaloterraCreature from "../assets/img/projects/megaloterra-creature.webp";
+import megaloterraLearn from "../assets/img/projects/megaloterra-learn.webp";
+import megaloterraShelf from "../assets/img/projects/megaloterra-shelf.webp";
 import portfolioCover from "../assets/img/projects/portfolio-cover.webp";
 import portfolioHero from "../assets/img/projects/portfolio-hero.webp";
 import portfolioProjects from "../assets/img/projects/portfolio-projects.webp";
@@ -34,7 +40,80 @@ export const projects = [
     slug: "megaloterra",
     title: "Megaloterra",
     type: "game",
-    description: "Placeholder: descripción de Megaloterra.",
+    description:
+      "A creature-capturing roguelike built by a team of 4. I made the 3D node map, the creature models, the save system and the UI.",
+    // Provenance: own work, Megaloterra team (third-person view of the procedural map, crossroads)
+    image: {
+      src: megaloterraCrossroads,
+      alt: "Third-person view of two creatures on pedestals at a path crossroads of the map, surrounded by a low-poly forest",
+      width: 1209,
+      height: 756,
+    },
+    // Provenance: own work, Megaloterra team
+    images: [
+      {
+        src: megaloterraCrossroads,
+        alt: "Third-person view of two creatures on pedestals at a path crossroads of the map, surrounded by a low-poly forest",
+        width: 1209,
+        height: 756,
+      },
+      {
+        src: megaloterraMap,
+        alt: "Top-down view of the procedural 3D map with branching paths, red combat nodes, event nodes and a low-poly forest",
+        width: 1204,
+        height: 753,
+      },
+      {
+        src: megaloterraCombat,
+        alt: "Turn-based combat with a horned creature on a pedestal and an ability menu",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: megaloterraCreature,
+        alt: "Creature sheet showing HP, defense, attack, speed and luck stats with tabs for abilities, consumables and items",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: megaloterraLearn,
+        alt: "Screen to learn a new ability, asking which existing ability the creature should replace",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: megaloterraShelf,
+        alt: "Shelf of creature figurines with the Fusion and Battle buttons",
+        width: 1600,
+        height: 1000,
+      },
+    ],
+    year: "2026",
+    role: "Gameplay programmer & 3D artist",
+    tools: "Unity, C#, Blender, ZBrush",
+    link: { label: "Play on itch.io", href: "https://d3nuwu.itch.io/megaloterra" },
+    sections: [
+      {
+        heading: "What it is",
+        body: "Megaloterra is a creature-capturing roguelike with turn-based combat, procedural maps and battles, and a fusion system where creatures inherit abilities. It was a university project by a team of 4 for the Project Management course at Universidad Atlántico Medio, made in Unity and published on itch.io.",
+      },
+      {
+        heading: "Procedural 3D node map",
+        body: "I built the map as branching paths in the style of Slay the Spire, but in 3D. The paths never cross. Nodes come in several types: combat, random event, treasure, shop, healing and boss, and non-combat nodes never repeat twice in a row. Decorations are generated right after the paths, so they never overlap them.",
+      },
+      {
+        heading: "Creature modeling",
+        body: "I sculpted the creatures in ZBrush and did the retopology in Blender, so they are clean, game-ready models.",
+      },
+      {
+        heading: "Save system",
+        body: "I programmed the save system, which stores the complete game: the creature team with stats, moves and items, the inventory of items and consumables, and the creatures kept in the nursery.",
+      },
+      {
+        heading: "Interfaces, menus and options",
+        body: "I programmed the HUD, the menus, the inventory screens and the options, so players can move through the game and manage their team comfortably.",
+      },
+    ],
   },
   {
     slug: "portfolio",
