@@ -91,6 +91,7 @@ export const projects = [
     year: "2026",
     role: "Gameplay programmer & 3D artist",
     tools: "Unity, C#, Blender, ZBrush",
+    link: { label: "Play on itch.io", href: "https://d3nuwu.itch.io/megaloterra" },
     sections: [
       {
         heading: "What it is",

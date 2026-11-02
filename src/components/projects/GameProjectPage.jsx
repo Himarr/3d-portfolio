@@ -119,6 +119,16 @@ export default function GameProjectPage({ project, headingRef }) {
             <p className="leading-relaxed text-muted">{body}</p>
           </section>
         ))}
+        {project.link && (
+          <a
+            href={project.link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 -mx-3 inline-flex min-h-11 items-center rounded-sm px-3 text-sm uppercase tracking-widest text-muted underline decoration-transparent underline-offset-8 transition-colors hover:text-text hover:decoration-accent focus-visible:bg-surface active:text-accent motion-reduce:transition-none"
+          >
+            {project.link.label}
+          </a>
+        )}
         <Link
           to="/#projects"
           className="mt-8 -mx-3 inline-flex min-h-11 items-center rounded-sm px-3 text-sm uppercase tracking-widest text-muted underline decoration-transparent underline-offset-8 transition-colors hover:text-text hover:decoration-accent focus-visible:bg-surface active:text-accent motion-reduce:transition-none"
