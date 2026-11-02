@@ -50,11 +50,11 @@ export const CEL_HATCH_ANGLE_DEG = 45;
 // Distance between stripes in CSS px (scaled by effective DPR); raising spaces them out.
 export const CEL_HATCH_PERIOD_CSS_PX = 6;
 // Fraction of the period covered by a stripe, in (0, 1); raising thickens stripes.
-export const CEL_HATCH_WIDTH = 0.3;
+export const CEL_HATCH_WIDTH = 0.4;
 // Multiplier on the shadow 2 colour inside a stripe, [0, 1]; lower = darker, 1 = no stripes.
-export const CEL_HATCH_MULTIPLIER = 0.25;
+export const CEL_HATCH_MULTIPLIER = 0;
 // Grain cell size in CSS px (one dot per cell, scaled by effective DPR).
-export const CEL_GRAIN_CELL_CSS_PX = 18;
+export const CEL_GRAIN_CELL_CSS_PX = 10;
 // Maximum grain dot radius relative to the cell (reached at the centre of the spot), in [0.5, 1);
 // dots shrink to nothing at the spot edge; raising enlarges them.
 export const CEL_GRAIN_DOT_RADIUS = 0.6;
@@ -66,25 +66,25 @@ export const CEL_GRAIN_STRENGTH = 1;
 // Outline colour (sRGB hex).
 export const OUTLINE_COLOR = "#000000";
 // Outline thickness in CSS px (scaled by effective DPR); raising thickens it.
-export const OUTLINE_THICKNESS_CSS_PX = 3;
+export const OUTLINE_THICKNESS_CSS_PX = 4;
 // Drawn width in CSS px of the contained 1200x1200 hero poster image at 1440x900 (box
 // 1425x839, height-limited, so the image is 839x839), measured 2026-10-20. PosterCapture
 // scales the outline by 1200 / this so the poster outline reads as OUTLINE_THICKNESS_CSS_PX.
 export const POSTER_DISPLAY_CSS_PX = 839;
 // Off by owner decision (D-20): silhouette outline only. Set to true to re-enable
 // strokes at crater rims and other inner edges.
-export const OUTLINE_INNER_EDGES = false;
+export const OUTLINE_INNER_EDGES = true;
 // Inner edge: normal-xy difference across the line width; lowering adds more lines.
-export const OUTLINE_NORMAL_THRESHOLD = 0.35;
+export const OUTLINE_NORMAL_THRESHOLD = 1;
 // Inner edge: depth difference in units of radius; lowering adds more lines.
-export const OUTLINE_DEPTH_THRESHOLD = 0.03;
+export const OUTLINE_DEPTH_THRESHOLD = 0.07;
 // Inner strokes are suppressed within this distance of the silhouette, in multiples of
 // the outline thickness; raise if a stroke still shows near the limb, lower if strokes
 // vanish too early; 0 = off.
 export const OUTLINE_INNER_SILHOUETTE_MARGIN = 2.0;
 // No inner stroke where the reconstructed view-normal z (from mask xy) is below this,
 // range [0, 1]. Raise = strokes stay further from the limb; lower = allowed closer; 0 = off.
-export const OUTLINE_INNER_GRAZING_Z = 0.35;
+export const OUTLINE_INNER_GRAZING_Z = 0.4;
 // true = inner strokes only where the surface faces away from the light (shadow side,
 // partial arcs around craters); false = stroke all rims. Uses CEL_LIGHT_DIRECTION.
 export const OUTLINE_INNER_SHADOW_ONLY = true;

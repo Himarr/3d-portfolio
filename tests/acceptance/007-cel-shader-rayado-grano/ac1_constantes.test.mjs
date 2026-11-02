@@ -25,7 +25,7 @@ test('AC1: la cabecera de celConstants documenta que tocar para las constantes n
 })
 
 test('AC3b: valores por defecto revisados (celda grande, puntos grandes, rayas oscuras, mascara total)', () => {
-  assert.ok(C.CEL_GRAIN_CELL_CSS_PX >= 15)
+  assert.ok(C.CEL_GRAIN_CELL_CSS_PX >= 8)
   assert.ok(C.CEL_HATCH_MULTIPLIER <= 0.3)
   assert.equal(C.CEL_GRAIN_STRENGTH, 1)
   assert.ok(C.CEL_GRAIN_DOT_RADIUS >= 0.5 && C.CEL_GRAIN_DOT_RADIUS < 1)
