@@ -24,6 +24,11 @@
 //   },
 // },
 
+import portfolioCover from "../assets/img/projects/portfolio-cover.webp";
+import portfolioHero from "../assets/img/projects/portfolio-hero.webp";
+import portfolioProjects from "../assets/img/projects/portfolio-projects.webp";
+import portfolioContact from "../assets/img/projects/portfolio-contact.webp";
+
 export const projects = [
   {
     slug: "megaloterra",
@@ -36,7 +41,35 @@ export const projects = [
     title: "3D Portfolio",
     type: "game",
     description:
-      "This very site: a 3D portfolio built with React and Three.js, developed with an efficient AI-assisted workflow.",
+      "This very site: a real-time 3D portfolio, designed and directed by me and built with AI agents under my control.",
+    // Provenance: own work (screenshots of this site)
+    image: {
+      src: portfolioCover,
+      alt: "Cel-shaded 3D moon with an alien and the navigation bar of the portfolio home page",
+      width: 1600,
+      height: 1000,
+    },
+    // Provenance: own work (screenshots of this site)
+    images: [
+      {
+        src: portfolioHero,
+        alt: "Portfolio home page showing a cel-shaded 3D moon with an alien and the navigation",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: portfolioProjects,
+        alt: "Projects carousel of the portfolio over a starry background",
+        width: 1600,
+        height: 1000,
+      },
+      {
+        src: portfolioContact,
+        alt: "Contact section of the portfolio with a message form",
+        width: 1600,
+        height: 1000,
+      },
+    ],
     year: "2026",
     role: "Design & development",
     tools:
@@ -44,19 +77,19 @@ export const projects = [
     sections: [
       {
         heading: "What it is",
-        body: "A portfolio for my 3D modeling and game development work, designed as a piece of 3D work in itself. A Three.js moon and alien share the scene with a custom cel shader that draws its own outlines, while snap scrolling and a project carousel guide visitors through the page.",
+        body: "A portfolio for my 3D modeling and game development work, designed as a piece of real-time 3D in itself. A Three.js moon and alien share the scene with a custom cel shader that draws its own outlines, while snap scrolling and a project carousel guide visitors through the page.",
       },
       {
-        heading: "Built with AI assistance",
-        body: "Claude Code acts as the orchestrator of the whole build. Every feature goes through the same short loop: a brief spec, acceptance tests that fail first, the minimum implementation to make them pass, and a single review.",
+        heading: "Directing a project with AI",
+        body: "I define the product, the design, the architecture and the acceptance criteria. AI agents do the implementation under my direction, so the vision and the technical decisions stay mine from the first idea to the final result.",
       },
       {
-        heading: "Using AI efficiently",
-        body: "The work is split across specialized subagents: a planner, a builder, a faster builder for small tasks, a reviewer and a browser checker. The model is matched to the job, with Haiku for simple tasks, Sonnet as the default and Opus to orchestrate. The acceptance tests are a contract the AI cannot edit, browser checks are grouped into a few runs, and I review the visuals myself.",
+        heading: "A workflow of my own",
+        body: "I designed a workflow built on specialized agents, guided by specs and acceptance tests, with an independent review of every feature. It turns AI assistance into a repeatable, predictable process rather than ad hoc prompting.",
       },
       {
-        heading: "Results",
-        body: "Development started in October 2026, and 11 features have been delivered so far, each with its own spec. I approve every spec before any code is written, so the AI speeds up the work while the decisions stay mine.",
+        heading: "Control and quality",
+        body: "I approve every spec before any code is written, and the acceptance tests act as a contract the agents cannot change. Lint, build and automated checks for performance and contrast run on every feature, and I review the visual result myself. Since October 2026, more than 10 features have been delivered this way.",
       },
     ],
   },
