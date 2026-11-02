@@ -23,3 +23,18 @@ test('AC1: la cabecera de celConstants documenta que tocar para las constantes n
     assert.ok(header.includes(name), `${name} falta en la cabecera "What to change to"`)
   }
 })
+
+test('AC3b: valores por defecto revisados (granulado grande, rayas oscuras, mascara total)', () => {
+  assert.ok(C.CEL_GRAIN_CELL_CSS_PX >= 15)
+  assert.ok(C.CEL_HATCH_MULTIPLIER <= 0.3)
+  assert.equal(C.CEL_GRAIN_STRENGTH, 1)
+})
+
+test('AC1: la cabecera describe el granulado como mascara del foco, no como granulado en zonas iluminadas', () => {
+  const src = readFileSync(new URL('../../../src/three/celConstants.js', import.meta.url), 'utf8')
+  const header = src.split('// --- Cel ramp ---')[0]
+  assert.doesNotMatch(header, /grain on lit areas/i)
+  const m = src.match(/(\/\/[^\n]*\n)+(?=export const CEL_GRAIN_STRENGTH)/)
+  assert.ok(m, 'comentario de CEL_GRAIN_STRENGTH')
+  assert.match(m[0], /mask/i, 'el comentario de CEL_GRAIN_STRENGTH habla de mascara')
+})
