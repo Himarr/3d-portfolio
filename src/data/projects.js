@@ -36,6 +36,11 @@ export const projects = [
     title: "3D Library",
     type: "library",
     description: "Placeholder: descripción de 3D Library.",
+    models: Array.from({ length: 6 }, (_, i) => ({
+      id: `model-${i + 1}`,
+      title: `Placeholder model ${i + 1}`,
+      poster: null,
+    })),
   },
   {
     slug: "super-unam-odyssey",
