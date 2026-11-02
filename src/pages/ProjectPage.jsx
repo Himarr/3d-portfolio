@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProjectBySlug } from '../data/projects.js'
 import ProjectNotFound from '../components/ProjectNotFound.jsx'
+import GameProjectPage from '../components/projects/GameProjectPage.jsx'
 
 export default function ProjectPage() {
   const { slug } = useParams()
@@ -13,6 +14,8 @@ export default function ProjectPage() {
   }, [slug])
 
   if (!project) return <ProjectNotFound />
+
+  if (project.type === 'game') return <GameProjectPage project={project} headingRef={headingRef} />
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-8">
