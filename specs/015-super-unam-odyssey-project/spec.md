@@ -12,14 +12,14 @@ Sustituir el placeholder de Super Unam Odyssey en `src/data/projects.js` por la 
   - "Movement physics and collisions": programación de las físicas del movimiento y las colisiones.
   - "Enemies, power-ups and levels": enemigos, power-ups, máquinas de estados y niveles.
   - "Odyssey mode": modo que añade a Cappy y la mecánica de rebotar sobre el gorro.
+- AC4: Dado /projects/super-unam-odyssey, el carrusel muestra la portada real (entrada `images` con solo la portada) y ninguna diapositiva placeholder; con una sola imagen no hay flechas ni puntos. Los proyectos con ≥ 3 imágenes y los que no tienen `images` se ven igual que antes.
 
 ## No-objetivos
-- No se añade galería `images` (solo hay una captura).
-- No se cambia el orden de proyectos, el componente de la ficha ni el carrusel.
-- No se modifican tests ni datos de otros proyectos.
+- No se cambia el orden de proyectos ni el carrusel de la home.
+- No se modifican datos de otros proyectos. Solo se ajustan los tests anteriores que fijaban el placeholder de super-unam-odyssey.
 
 ## Restricciones
-- Archivos: `src/data/projects.js`, nuevo `src/assets/img/projects/super-unam-odyssey-cover.webp`, tests en `tests/acceptance/015-super-unam-odyssey-project/`.
+- Archivos: `src/data/projects.js`, `src/components/projects/GameProjectPage.jsx` (AC4: usar `images` reales cuando haya al menos 1), nuevo `src/assets/img/projects/super-unam-odyssey-cover.webp`, tests en `tests/acceptance/015-super-unam-odyssey-project/`.
 - Imagen: origen `C:\Users\himar\AppData\Local\Temp\claude\C--Users-himar-Projects-3d-portfolio\236596cd-f0d0-4f3b-ae78-ed67f01eb6f8\images\1.webp` (2000×1125). Procesar con ffmpeg (disponible en PATH), salida WebP con ancho ≤ 1600 manteniendo proporción.
 
 ## Preguntas abiertas
