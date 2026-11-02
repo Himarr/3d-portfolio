@@ -87,9 +87,7 @@ vec3 celShade( vec3 base, vec3 N ) {
   float stripe = 1.0 - smoothstep( uCelHatchWidth - sw, uCelHatchWidth + sw, sf );
   vec3 c = base * uCelShadow2 * mix( 1.0, uCelHatchMult, stripe );
   c = mix( c, base * uCelShadow1, celBand( uCelTShadow1, ndl, w ) );
-  float litW = celBand( uCelTLit, ndl, w );
-  c = mix( c, base * uCelLit, litW );
-  c = mix( c, uCelSpotColor, celBand( uCelTSpot, ndl, w ) );
+  c = mix( c, base * uCelLit, celBand( uCelTLit, ndl, w ) );
   // Screen-space Voronoi dots, 3x3 neighbourhood.
   vec2 q = gl_FragCoord.xy / ( uCelGrainCell * uCelDpr );
   vec2 qi = floor( q );
@@ -103,7 +101,7 @@ vec3 celShade( vec3 base, vec3 N ) {
   }
   float dw = fwidth( dmin );
   float dots = 1.0 - smoothstep( uCelGrainRadius - dw, uCelGrainRadius + dw, dmin );
-  c = mix( c, uCelSpotColor, dots * litW * uCelGrainStrength );
+  c = mix( c, uCelSpotColor, celBand( uCelTSpot, ndl, w ) * mix( 1.0, dots, uCelGrainStrength ) );
   return c;
 }
 `

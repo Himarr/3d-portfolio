@@ -10,8 +10,8 @@
 //   - soften or harden band edges: CEL_BAND_AA_PX
 //   - diagonal stripes in shadow 2: CEL_HATCH_ANGLE_DEG, CEL_HATCH_PERIOD_CSS_PX,
 //     CEL_HATCH_WIDTH, CEL_HATCH_MULTIPLIER (1 = no stripes)
-//   - dot grain on lit areas:      CEL_GRAIN_CELL_CSS_PX, CEL_GRAIN_DOT_RADIUS,
-//     CEL_GRAIN_STRENGTH (0 = no grain)
+//   - grain mask on the light spot: CEL_GRAIN_CELL_CSS_PX, CEL_GRAIN_DOT_RADIUS,
+//     CEL_GRAIN_STRENGTH (0 = solid spot)
 //   - thicker or thinner outline:  OUTLINE_THICKNESS_CSS_PX
 //   - outline colour:              OUTLINE_COLOR
 //   - silhouette only (no lines inside the model): OUTLINE_INNER_EDGES = false
@@ -52,13 +52,13 @@ export const CEL_HATCH_PERIOD_CSS_PX = 6;
 // Fraction of the period covered by a stripe, in (0, 1); raising thickens stripes.
 export const CEL_HATCH_WIDTH = 0.3;
 // Multiplier on the shadow 2 colour inside a stripe, [0, 1]; lower = darker, 1 = no stripes.
-export const CEL_HATCH_MULTIPLIER = 0.6;
+export const CEL_HATCH_MULTIPLIER = 0.25;
 // Grain cell size in CSS px (one dot per cell, scaled by effective DPR).
-export const CEL_GRAIN_CELL_CSS_PX = 5;
+export const CEL_GRAIN_CELL_CSS_PX = 18;
 // Grain dot radius relative to the cell, in (0, 1); raising enlarges the dots.
 export const CEL_GRAIN_DOT_RADIUS = 0.15;
-// Mix of the dots towards CEL_LIGHT_SPOT_COLOR, [0, 1]; 0 = no grain.
-export const CEL_GRAIN_STRENGTH = 0.5;
+// Strength of the grain mask on the light spot, [0, 1]; 0 = solid spot, 1 = spot colour only inside the dots.
+export const CEL_GRAIN_STRENGTH = 1;
 
 // --- Outline ---
 
