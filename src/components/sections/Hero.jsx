@@ -2,6 +2,12 @@ import { useLayoutEffect, useRef } from "react";
 import SplitHeading from "../SplitHeading.jsx";
 import { gsap, ScrollTrigger } from "../../lib/gsap.js";
 import posterUrl from "../../assets/hero-planet-poster.png";
+import alienPosterUrl from "../../assets/hero-alien-poster.png";
+import {
+  alienOffsetInRadii,
+  ALIEN_HEIGHT_PER_MOON_RADIUS,
+  ALIEN_POSTER_FILL,
+} from "../../three/alienPlacement.js";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion.js";
 import { useCanvasStatus } from "../../context/canvasStatus.js";
 import { useMediaQuery } from "../../hooks/useMediaQuery.js";
@@ -106,6 +112,11 @@ export default function Hero() {
         marginLeft: "calc(var(--moon-poster-side) / -2)",
         marginTop: "calc(var(--moon-poster-side) / -2)",
       };
+  // Alien poster provenance: generated from this app's alien scene (Alien.glb,
+  // toon + outline) via /?capture-poster=alien in dev; the alien fills
+  // ALIEN_POSTER_FILL of the 1200 px square. Same offset as live placement.
+  const alienOff = alienOffsetInRadii(wrap, { dx: 0, dy: 0 });
+  const alienSide = `calc(var(--moon-r) * ${ALIEN_HEIGHT_PER_MOON_RADIUS / ALIEN_POSTER_FILL})`;
   const poster = (
     <div
       ref={posterBoxRef}
@@ -123,6 +134,23 @@ export default function Hero() {
         className={`hero-poster pointer-events-none absolute inset-0 h-full w-full object-fill transition-opacity duration-700 motion-reduce:transition-none ${
           status === "live" ? "opacity-0" : "opacity-100"
         }`}
+      />
+      <img
+        src={alienPosterUrl}
+        alt=""
+        aria-hidden="true"
+        width="1200"
+        height="1200"
+        decoding="async"
+        className={`hero-poster pointer-events-none absolute object-fill transition-opacity duration-700 motion-reduce:transition-none ${
+          status === "live" ? "opacity-0" : "opacity-100"
+        }`}
+        style={{
+          width: alienSide,
+          height: alienSide,
+          left: `calc(50% + var(--moon-r) * ${alienOff.dx} - ${alienSide} / 2)`,
+          top: `calc(50% - var(--moon-r) * ${alienOff.dy} - ${alienSide} / 2)`,
+        }}
       />
     </div>
   );
