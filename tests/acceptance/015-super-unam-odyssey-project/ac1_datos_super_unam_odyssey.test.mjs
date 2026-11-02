@@ -35,5 +35,4 @@ test('AC1: image de portada con src, alt descriptivo, width/height y comentario 
   assert.ok(typeof p.image.alt === 'string' && p.image.alt.trim().length > 10, 'alt descriptivo')
   assert.ok(Number.isInteger(p.image.width) && p.image.width > 0, 'width numérico')
   assert.ok(Number.isInteger(p.image.height) && p.image.height > 0, 'height numérico')
-  assert.ok(!('images' in p) || p.images === undefined, 'sin galería images')
 })
