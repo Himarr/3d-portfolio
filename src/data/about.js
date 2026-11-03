@@ -20,6 +20,12 @@
 //   height: 1500,
 // };
 
-// Placeholder until the owner supplies an image. The About section renders a
-// fixed-ratio placeholder when this is null.
-export const aboutImage = null;
+import alienAboutMe from "../assets/img/AlienAboutMe.png";
+
+// Provenance: own work (self-portrait of my 3D alien character)
+export const aboutImage = {
+  src: alienAboutMe,
+  alt: "Self-portrait: 3D alien character",
+  width: 633,
+  height: 796,
+};
