@@ -9,8 +9,8 @@ test('AC3: existen los tres pósters de la librería y cada modelo los enlaza', 
   const s = data()
   for (const [id, title] of [['supra-mk3', 'Supra MK3'], ['alien', 'Alien'], ['luna', 'Luna']]) {
     assert.ok(exists(`src/assets/img/library/${id}-poster.webp`), `${id}-poster.webp existe`)
-    assert.match(s, new RegExp(`library/${id}-poster\.webp`), `projects.js importa ${id}-poster`)
-    const line = s.match(new RegExp(`\{[^\n]*id:\s*"${id}"[^\n]*\}`))?.[0] ?? ''
+    assert.match(s, new RegExp(String.raw`library/${id}-poster\.webp`), `projects.js importa ${id}-poster`)
+    const line = s.match(new RegExp(String.raw`\{[^\n]*id:\s*"${id}"[^\n]*\}`))?.[0] ?? ''
     assert.ok(line, `modelo ${id}`)
     assert.doesNotMatch(line, /poster:\s*null/, `${title} con póster`)
   }
