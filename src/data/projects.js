@@ -184,7 +184,7 @@ export const projects = [
     slug: "3d-library",
     title: "3D Library",
     type: "library",
-    description: "Placeholder: descripción de 3D Library.",
+    description: "A collection of my 3D models",
     // Provenance: own work (screenshot of the 3D viewer in &capture mode, Supra MK3)
     image: {
       src: libraryCover,
