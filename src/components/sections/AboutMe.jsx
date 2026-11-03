@@ -39,23 +39,16 @@ export default function AboutMe() {
       <div data-reveal className="md:order-last">
         <div
           style={{ aspectRatio: ABOUT_IMAGE_ASPECT }}
-          className="mx-auto w-full max-w-xs overflow-hidden border border-line md:mx-0 snap:h-(--about-img-h) snap:w-auto snap:max-w-none"
+          className="mx-auto w-full max-w-xs overflow-hidden border border-line bg-linear-to-br from-surface to-ink md:mx-0 snap:h-(--about-img-h) snap:w-auto snap:max-w-none"
         >
-          {aboutImage ? (
-            <img
-              src={aboutImage.src}
-              alt={aboutImage.alt}
-              width={aboutImage.width}
-              height={aboutImage.height}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div
-              aria-hidden="true"
-              className="h-full w-full bg-linear-to-br from-surface to-ink"
-            />
-          )}
+          <img
+            src={aboutImage.src}
+            alt={aboutImage.alt}
+            width={aboutImage.width}
+            height={aboutImage.height}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         </div>
       </div>
       <div className="flex min-w-0 flex-col gap-8">
