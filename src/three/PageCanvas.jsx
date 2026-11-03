@@ -124,7 +124,6 @@ function PageCanvasLayer({ pageRef, onStatus, starsOnly }) {
             maxDim={probe.maxDim}
             pixelBudget={pixelBudget}
             onDpr={setDpr}
-            onUnfit={fail}
           />
           <PageScene
             starCount={starCount}

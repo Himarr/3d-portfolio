@@ -4,7 +4,6 @@ import {
   PIXEL_BUDGET_COARSE,
   PIXEL_BUDGET_DESKTOP,
   computeDpr,
-  fitsAtDprOne,
   maxBufferDim,
 } from '../src/three/bufferLimits.js';
 
@@ -18,10 +17,27 @@ check('maxBufferDim is the min of the three limits', () => {
   assert.equal(maxBufferDim(2048, [8192, 4096]), 2048);
 });
 
-check('fitsAtDprOne checks both dimensions', () => {
-  assert.equal(fitsAtDprOne(5000, 900, 4096), false);
-  assert.equal(fitsAtDprOne(1920, 5000, 4096), false);
-  assert.equal(fitsAtDprOne(4096, 4096, 4096), true);
+check('oversize viewport gets reduced DPR below 1 that fits maxDim', () => {
+  for (const [w, h, maxDim] of [
+    [2560, 1076, 2048],
+    [5000, 900, 4096],
+    [1920, 5000, 4096],
+    [3840, 2160, 2048],
+  ]) {
+    const dpr = computeDpr({
+      cssWidth: w,
+      cssHeight: h,
+      deviceDpr: 2,
+      maxDim,
+      pixelBudget: PIXEL_BUDGET_DESKTOP,
+    });
+    assert.ok(dpr > 0 && dpr < 1, `dpr ${dpr} for ${w}x${h}`);
+    assert.ok(Math.ceil(w * dpr) <= maxDim, `width ${w}*${dpr} > ${maxDim}`);
+    assert.ok(Math.ceil(h * dpr) <= maxDim, `height ${h}*${dpr} > ${maxDim}`);
+  }
+  assert.ok(
+    computeDpr({ cssWidth: 2560, cssHeight: 1076, deviceDpr: 1, maxDim: 2048, pixelBudget: PIXEL_BUDGET_DESKTOP }) <= 0.8,
+  );
 });
 
 const widths = [320, 375, 768, 1024, 1440, 1920, 2560, 3840, 4096];

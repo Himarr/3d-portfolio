@@ -1,17 +1,13 @@
 import { useLayoutEffect } from "react";
 import { useThree } from "@react-three/fiber";
-import { computeDpr, fitsAtDprOne } from "./bufferLimits.js";
+import { computeDpr } from "./bufferLimits.js";
 
-// Renders nothing. On every canvas size change it either reports an unfit
-// size or the effective DPR computed by the pure buffer-limit maths.
-export default function DprController({ maxDim, pixelBudget, onDpr, onUnfit }) {
+// Renders nothing. On every canvas size change it reports the effective DPR
+// computed by the pure buffer-limit maths.
+export default function DprController({ maxDim, pixelBudget, onDpr }) {
   const size = useThree((s) => s.size);
 
   useLayoutEffect(() => {
-    if (!fitsAtDprOne(size.width, size.height, maxDim)) {
-      onUnfit();
-      return;
-    }
     onDpr(
       computeDpr({
         cssWidth: size.width,
@@ -21,7 +17,7 @@ export default function DprController({ maxDim, pixelBudget, onDpr, onUnfit }) {
         pixelBudget,
       }),
     );
-  }, [size.width, size.height, maxDim, pixelBudget, onDpr, onUnfit]);
+  }, [size.width, size.height, maxDim, pixelBudget, onDpr]);
 
   return null;
 }

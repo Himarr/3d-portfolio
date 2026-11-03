@@ -10,23 +10,15 @@ export function maxBufferDim(maxRenderbuffer, maxViewportDims) {
   return Math.min(maxRenderbuffer, maxViewportDims[0], maxViewportDims[1]);
 }
 
-// True when the viewport-sized buffer fits the device limit at DPR 1 in both
-// dimensions.
-export function fitsAtDprOne(cssWidth, cssHeight, maxDim) {
-  return cssWidth <= maxDim && cssHeight <= maxDim;
-}
-
 // Effective DPR: device DPR limited by DPR_MAX, the buffer dimension limit and
-// the pixel budget; floor 1; rounded down to 2 decimals.
+// the pixel budget; floor 1 when the size fits at DPR 1, otherwise the reduced
+// DPR (< 1) that fits maxDim; rounded down to 2 decimals.
 export function computeDpr({ cssWidth, cssHeight, deviceDpr, maxDim, pixelBudget }) {
+  const fitDpr = (maxDim / Math.max(cssWidth, cssHeight)) * (1 - 1e-9);
+  if (Math.max(cssWidth, cssHeight) > maxDim) return Math.floor(fitDpr * 100) / 100;
   const raw = Math.max(
     1,
-    Math.min(
-      deviceDpr,
-      DPR_MAX,
-      (maxDim / Math.max(cssWidth, cssHeight)) * (1 - 1e-9),
-      Math.sqrt(pixelBudget / (cssWidth * cssHeight)),
-    ),
+    Math.min(deviceDpr, DPR_MAX, fitDpr, Math.sqrt(pixelBudget / (cssWidth * cssHeight))),
   );
   return Math.floor(raw * 100) / 100;
 }
