@@ -8,13 +8,13 @@ import CanvasErrorBoundary from './CanvasErrorBoundary.jsx'
 import { probeWebGL2 } from './webgl.js'
 import { useDocumentVisible } from './useDocumentVisible.js'
 import { PIXEL_BUDGET_COARSE, PIXEL_BUDGET_DESKTOP } from './bufferLimits.js'
+import { CAMERA } from './camera.js'
 
 const GL_OPTIONS = {
   antialias: true,
   alpha: true,
   powerPreference: 'high-performance',
 }
-const CAMERA = { position: [0, 0, 1000], near: 1, far: 4000, zoom: 1 }
 const RESIZE = { scroll: false }
 const CANVAS_STYLE = { pointerEvents: 'none' }
 
@@ -124,7 +124,6 @@ function PageCanvasLayer({ pageRef, onStatus, starsOnly }) {
             maxDim={probe.maxDim}
             pixelBudget={pixelBudget}
             onDpr={setDpr}
-            onUnfit={fail}
           />
           <PageScene
             starCount={starCount}
