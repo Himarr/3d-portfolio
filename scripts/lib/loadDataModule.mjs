@@ -2,7 +2,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const ASSET_IMPORT_RE = /import\s+(\w+)\s+from\s+(['"])([^'"]+\.(?:svg|png|jpg|jpeg|webp))\2\s*;?/g
+const ASSET_IMPORT_RE = /import\s+(\w+)\s+from\s+(['"])([^'"]+\.(?:svg|png|jpg|jpeg|webp|glb)(?:\?url)?)\2\s*;?/g
 
 export function stubAssetImports(source) {
   return source.replace(ASSET_IMPORT_RE, (_m, name, _q, file) => {

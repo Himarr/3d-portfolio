@@ -34,6 +34,9 @@ import portfolioCover from "../assets/img/projects/portfolio-cover.webp";
 import portfolioHero from "../assets/img/projects/portfolio-hero.webp";
 import portfolioProjects from "../assets/img/projects/portfolio-projects.webp";
 import portfolioContact from "../assets/img/projects/portfolio-contact.webp";
+import supraGlb from "../assets/3D/SupraMK3.glb?url";
+import alienGlb from "../assets/3D/Alien.glb?url";
+import moonGlb from "../assets/3D/moon.glb?url";
 import superUnamOdysseyCover from "../assets/img/projects/super-unam-odyssey-cover.webp";
 
 export const projects = [
@@ -178,11 +181,11 @@ export const projects = [
     title: "3D Library",
     type: "library",
     description: "Placeholder: descripción de 3D Library.",
-    models: Array.from({ length: 6 }, (_, i) => ({
-      id: `model-${i + 1}`,
-      title: `Placeholder model ${i + 1}`,
-      poster: null,
-    })),
+    models: [
+      { id: "supra-mk3", title: "Supra MK3", poster: null, url: supraGlb, toon: false },
+      { id: "alien", title: "Alien", poster: null, url: alienGlb, toon: true },
+      { id: "luna", title: "Luna", poster: null, url: moonGlb, toon: true },
+    ],
   },
   {
     slug: "super-unam-odyssey",
