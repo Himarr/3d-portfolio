@@ -9,7 +9,7 @@ test('AC2: cada tarjeta es un enlace a /viewer?model=<id>, sin dialog, con degra
   const html = await renderRoute('/projects/3d-library')
   assert.doesNotMatch(html, /<dialog\b/)
   for (const m of lib.models) {
-    assert.match(html, new RegExp(`<a\b[^>]*href="/viewer\?model=${encodeURIComponent(m.id)}"`), m.id)
+    assert.match(html, new RegExp(String.raw`<a\b[^>]*href="/viewer\?model=${encodeURIComponent(m.id)}"`), m.id)
   }
   assert.ok((html.match(/bg-gradient-to-/g) ?? []).length >= lib.models.length, 'degradados como miniatura')
 })
