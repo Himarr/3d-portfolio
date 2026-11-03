@@ -27,7 +27,7 @@ export default function ViewerCanvas({ url, toon, capture }) {
       </Suspense>
       <OrbitControls
         autoRotate={!reduced && !capture}
-        autoRotateSpeed={1}
+        autoRotateSpeed={0.5}
         enablePan={false}
         minDistance={1.5}
         maxDistance={6}
