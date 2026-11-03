@@ -114,7 +114,7 @@ export default function Navbar() {
             <Link to="/#contact" className={linkClass}>
               Contact
             </Link>
-            <NavLink to="/viewer" className={pageLinkClass}>
+            <NavLink to="/projects/3d-library" className={pageLinkClass}>
               3D Viewer
             </NavLink>
           </div>
@@ -145,7 +145,7 @@ export default function Navbar() {
           <Link to="/#contact" className={`${linkClass} ${panelItem}`} onClick={close}>
             Contact
           </Link>
-          <NavLink to="/viewer" className={pageClass(panelItem)} onClick={close}>
+          <NavLink to="/projects/3d-library" className={pageClass(panelItem)} onClick={close}>
             3D Viewer
           </NavLink>
         </div>

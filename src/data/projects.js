@@ -34,7 +34,14 @@ import portfolioCover from "../assets/img/projects/portfolio-cover.webp";
 import portfolioHero from "../assets/img/projects/portfolio-hero.webp";
 import portfolioProjects from "../assets/img/projects/portfolio-projects.webp";
 import portfolioContact from "../assets/img/projects/portfolio-contact.webp";
+import supraGlb from "../assets/3D/SupraMK3.glb?url";
+import alienGlb from "../assets/3D/Alien.glb?url";
+import moonGlb from "../assets/3D/moon.glb?url";
 import superUnamOdysseyCover from "../assets/img/projects/super-unam-odyssey-cover.webp";
+import libraryCover from "../assets/img/projects/3d-library-cover.webp";
+import supraPoster from "../assets/img/library/supra-mk3-poster.webp";
+import alienPoster from "../assets/img/library/alien-poster.webp";
+import lunaPoster from "../assets/img/library/luna-poster.webp";
 
 export const projects = [
   {
@@ -178,11 +185,18 @@ export const projects = [
     title: "3D Library",
     type: "library",
     description: "Placeholder: descripción de 3D Library.",
-    models: Array.from({ length: 6 }, (_, i) => ({
-      id: `model-${i + 1}`,
-      title: `Placeholder model ${i + 1}`,
-      poster: null,
-    })),
+    // Provenance: own work (screenshot of the 3D viewer in &capture mode, Supra MK3)
+    image: {
+      src: libraryCover,
+      alt: "3D Library cover: the Supra MK3 car model rendered in the 3D viewer",
+      width: 2000,
+      height: 1250,
+    },
+    models: [
+      { id: "supra-mk3", title: "Supra MK3", poster: supraPoster, url: supraGlb, toon: false },
+      { id: "alien", title: "Alien", poster: alienPoster, url: alienGlb, toon: true },
+      { id: "luna", title: "Luna", poster: lunaPoster, url: moonGlb, toon: true },
+    ],
   },
   {
     slug: "super-unam-odyssey",
