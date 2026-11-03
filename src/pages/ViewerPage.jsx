@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { projects } from '../data/projects'
+import ViewerCanvas from '../three/ViewerCanvas.jsx'
 
 const models = projects.find((p) => p.slug === '3d-library').models
 const linkClass =
@@ -20,7 +21,11 @@ export default function ViewerPage() {
       >
         {model ? model.title : 'Model not found'}
       </h1>
-      {model && <div className="aspect-video w-full border border-line" />}
+      {model && (
+        <div className="aspect-video w-full border border-line">
+          <ViewerCanvas key={model.id} url={model.url} toon={model.toon} />
+        </div>
+      )}
       <Link to="/projects/3d-library" className={linkClass}>
         {model ? 'Back to library' : 'Go to the library'}
       </Link>
