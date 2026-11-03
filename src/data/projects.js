@@ -184,8 +184,7 @@ export const projects = [
     slug: "3d-library",
     title: "3D Library",
     type: "library",
-    description:
-      "A collection of my 3D models: a Supra MK3, an alien and a moon. Open any of them in the in-browser viewer to watch it on a turntable or orbit it with the mouse.",
+    description: "A collection of my 3D models",
     // Provenance: own work (screenshot of the 3D viewer in &capture mode, Supra MK3)
     image: {
       src: libraryCover,
