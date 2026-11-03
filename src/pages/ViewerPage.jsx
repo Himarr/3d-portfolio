@@ -22,7 +22,7 @@ export default function ViewerPage() {
   }
 
   return (
-    <div className="relative h-[calc(100svh-3.8125rem)] w-full">
+    <div className="relative h-[calc(100svh-var(--nav-h))] w-full">
       <ViewerCanvas key={model.id} url={model.url} toon={model.toon} />
       <Link
         to="/projects/3d-library"
