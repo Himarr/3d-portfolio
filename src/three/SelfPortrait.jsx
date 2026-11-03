@@ -22,6 +22,8 @@ function Scene() {
   const tilt = useRef({ x: 0, y: 0 }).current
 
   useFrame((state, delta) => {
+    // Refs are null while the model is still suspended.
+    if (!anchor.current || !rig.current) return
     // Fitted model has unit radius: scale = half the shorter side of the frame.
     const { width, height } = state.size
     anchor.current.scale.setScalar(Math.min(width, height) / 2)
