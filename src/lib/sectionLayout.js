@@ -9,7 +9,7 @@ export const SECTION_ARROW_CLEARANCE_PX = 12
 export const SECTION_SAFE_BAND_PX = SECTION_ARROW_OFFSET_PX + SECTION_ARROW_SIZE_PX + SECTION_ARROW_CLEARANCE_PX
 
 // About image frame: width : height (4 / 5 is portrait), and the maximum frame width in rem.
-export const ABOUT_IMAGE_ASPECT = "4 / 5"
+export const ABOUT_IMAGE_ASPECT = 4 / 5
 export const ABOUT_IMAGE_MAX_REM = 32
 
 // Inline style that exposes the safe band to CSS as `var(--safe-band)`.

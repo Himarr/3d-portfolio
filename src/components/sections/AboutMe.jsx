@@ -1,16 +1,13 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import CanvasErrorBoundary from "../../three/CanvasErrorBoundary.jsx";
-import { probeWebGL2 } from "../../three/webgl.js";
+import { useRef } from "react";
 import SplitHeading from "../SplitHeading.jsx";
 import { useSectionReveal } from "../../hooks/useSectionReveal.js";
+import { aboutImage } from "../../data/about.js";
 import {
   ABOUT_IMAGE_ASPECT,
   ABOUT_IMAGE_MAX_REM,
   SECTION_SAFE_BAND_PX,
   safeBandStyle,
 } from "../../lib/sectionLayout.js";
-
-const SelfPortrait = lazy(() => import("../../three/SelfPortrait.jsx"));
 
 const facts = [
   { id: "focus", label: "Focus", value: "Game development 3D Modeling" },
@@ -26,25 +23,7 @@ const sectionStyle = {
 
 export default function AboutMe() {
   const ref = useRef(null);
-  const frameRef = useRef(null);
-  const [showCanvas, setShowCanvas] = useState(false);
   useSectionReveal(ref);
-
-  // Mount the canvas once the frame is near the viewport and WebGL2 exists.
-  useEffect(() => {
-    const frame = frameRef.current;
-    if (!frame || !probeWebGL2()) return undefined;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setShowCanvas(true);
-        io.disconnect();
-      },
-      { rootMargin: "400px" },
-    );
-    io.observe(frame);
-    return () => io.disconnect();
-  }, []);
 
   return (
     <section
@@ -59,24 +38,23 @@ export default function AboutMe() {
     >
       <div data-reveal className="md:order-last">
         <div
-          ref={frameRef}
-          role="img"
-          aria-label="Self-portrait: 3D alien character"
           style={{ aspectRatio: ABOUT_IMAGE_ASPECT }}
-          className="relative mx-auto w-full max-w-xs overflow-hidden border border-line md:mx-0 snap:h-(--about-img-h) snap:w-auto snap:max-w-none"
+          className="mx-auto w-full max-w-xs overflow-hidden border border-line md:mx-0 snap:h-(--about-img-h) snap:w-auto snap:max-w-none"
         >
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-linear-to-br from-surface to-ink"
-          />
-          {showCanvas && (
-            <div aria-hidden="true" className="absolute inset-0">
-              <CanvasErrorBoundary>
-                <Suspense fallback={null}>
-                  <SelfPortrait />
-                </Suspense>
-              </CanvasErrorBoundary>
-            </div>
+          {aboutImage ? (
+            <img
+              src={aboutImage.src}
+              alt={aboutImage.alt}
+              width={aboutImage.width}
+              height={aboutImage.height}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="h-full w-full bg-linear-to-br from-surface to-ink"
+            />
           )}
         </div>
       </div>
