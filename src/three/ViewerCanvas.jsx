@@ -5,10 +5,10 @@ import Model from './Model.jsx'
 import FitToUnit from './FitToUnit.jsx'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js'
 
-export default function ViewerCanvas({ url, toon }) {
+export default function ViewerCanvas({ url, toon, capture }) {
   const reduced = usePrefersReducedMotion()
   return (
-    <Canvas camera={{ position: [0, 0.6, 3], fov: 40 }} gl={{ alpha: true }}>
+    <Canvas camera={{ position: [0, 0.6, 3], fov: 40 }} gl={{ alpha: true, preserveDrawingBuffer: !!capture }}>
       <ambientLight intensity={0.5} />
       <directionalLight position={[3, 4, 5]} intensity={0.8} />
       <directionalLight position={[-4, 1, -3]} intensity={0.2} />
@@ -26,7 +26,7 @@ export default function ViewerCanvas({ url, toon }) {
         </FitToUnit>
       </Suspense>
       <OrbitControls
-        autoRotate={!reduced}
+        autoRotate={!reduced && !capture}
         enablePan={false}
         minDistance={1.5}
         maxDistance={6}

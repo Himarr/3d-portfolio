@@ -14,6 +14,7 @@ const GL_OPTIONS = {
   antialias: true,
   alpha: true,
   powerPreference: 'high-performance',
+  preserveDrawingBuffer: import.meta.env.DEV && location.search.includes('capture'),
 }
 const RESIZE = { scroll: false }
 const CANVAS_STYLE = { pointerEvents: 'none' }
