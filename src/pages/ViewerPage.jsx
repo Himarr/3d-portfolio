@@ -1,6 +1,12 @@
+import { lazy, Suspense, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { projects } from '../data/projects'
 import ViewerCanvas from '../three/ViewerCanvas.jsx'
+import CanvasErrorBoundary from '../three/CanvasErrorBoundary.jsx'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js'
+
+const PageCanvas = lazy(() => import('../three/PageCanvas.jsx'))
+const noop = () => {}
 
 const models = projects.find((p) => p.slug === '3d-library').models
 const linkClass =
@@ -8,6 +14,8 @@ const linkClass =
 
 export default function ViewerPage() {
   const [params] = useSearchParams()
+  const pageRef = useRef(null)
+  const reducedMotion = usePrefersReducedMotion()
   const model = models.find((m) => m.id === params.get('model'))
 
   if (!model) {
@@ -22,7 +30,14 @@ export default function ViewerPage() {
   }
 
   return (
-    <div className="relative h-[calc(100svh-var(--nav-h))] w-full">
+    <div ref={pageRef} className="relative isolate h-[calc(100svh-var(--nav-h))] w-full">
+      {!reducedMotion && (
+        <CanvasErrorBoundary onError={noop}>
+          <Suspense fallback={null}>
+            <PageCanvas starsOnly pageRef={pageRef} onStatus={noop} />
+          </Suspense>
+        </CanvasErrorBoundary>
+      )}
       <ViewerCanvas key={model.id} url={model.url} toon={model.toon} />
       <Link
         to="/projects/3d-library"
